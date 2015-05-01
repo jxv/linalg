@@ -149,8 +149,8 @@ m2f mkm2f(float xx, float xy, float yx, float yy) {
 	};
 }
 
-m2f mkvm2f(v2f v, v2f u) {
-	return (m2f) { .x = v, .y = u };
+m2f mkvm2f(v2f x, v2f y) {
+	return (m2f) { .x = x, .y = y };
 }
 
 m2f eyem2f() {
@@ -175,7 +175,7 @@ v2f yaxism2f(m2f m) {
 	return mkv2f(m.xy, m.yy);
 }
 
-m2f transm2f(m2f m) {
+m2f transposem2f(m2f m) {
 	return mkm2f(m.xx, m.yx, m.xy, m.yy);
 }
 
@@ -191,3 +191,30 @@ m2f mulm2f(m2f m, m2f n) {
 v2f mulm2fv(m2f m, v2f v) {
 	return mkv2f(m.xx * v.x + m.xy * v.y, m.yx * v.x + m.yy * v.y);
 }
+
+v4f mkv4f(float x, float y, float z, float w) {
+	return (v4f) { .x = x, .y = y, .z = z, .w = w };
+}
+
+v4f mulv4fs(v4f v, float s) {
+	return mkv4f(v.x * s, v.y * s, v.z * s, v.w * s);
+}
+
+m4f eyem4f() {
+	return mkvm4f(mkv4f(1,0,0,0), mkv4f(0,1,0,0), mkv4f(0,0,1,0), mkv4f(0,0,0,1));
+}
+
+m4f mkvm4f(v4f x, v4f y, v4f z, v4f w) {
+	return (m4f) { .x = x, .y = y, .z = z, .w = w };
+}
+
+m4f scalem4f(m4f m, v3f s) {
+	return mkvm4f(mulv4fs(m.x, s.x), mulv4fs(m.y, s.y), mulv4fs(m.z, s.z), m.w);
+}
+
+m4f translatem4f(m4f m, v3f t);
+m4f rotm4f(m4f m, float theta, v3f v);
+m4f frustumm4f(m4f m, float lf, float rt, float bot, float top, float near, float far);
+m4f perpm4f(m4f m, float fovy, float aspect, float near, float far);
+m4f orthom4f(m4f m, float lf, float rt, float bot, float top, float near, float far);
+m4f mulm4f(m4f m, m4f n);
