@@ -89,7 +89,7 @@ v2f crossv2fs(v2f v, float s);
 v2f crosssv2f(float s, v2f v);
 
 m2f mkm2f(float xx, float xy, float yx, float yy);
-m2f mkvm2f(v2f x, v2f y);
+m2f vm2f(v2f x, v2f y);
 m2f orientm2f(float theta);
 m2f absm2f(m2f m);
 v2f xaxism2f(m2f m);
@@ -99,15 +99,19 @@ m2f mulm2f(m2f m, m2f n);
 v2f mulm2fv(m2f m, v2f v);
 
 v3f mkv3f(float x, float y, float z);
+v3f zerov3f();
+v3f addv3f(v3f v, v3f u);
 v3f divv3fs(v3f v, float s);
 float lenv3f(v3f v);
 
 v4f mkv4f(float x, float y, float z, float w);
+v4f addv4f(v4f v, v4f u);
 v4f mulv4fs(v4f m, float s);
 m4f scalem4f(m4f m, v3f s);
 
 m4f eyem4f();
-m4f mkvm4f(v4f x, v4f y, v4f z, v4f w);
+m4f vm4f(v4f x, v4f y, v4f z, v4f w);
+m4f addm4f(m4f m, m4f n);
 m4f translatem4f(v3f t);
 m4f rotm4f(float theta, v3f v);
 m4f frustumm4f(float lf, float rt, float bot, float top, float near, float far);

@@ -157,7 +157,7 @@ m2f mkm2f(float xx, float xy, float yx, float yy) {
 	};
 }
 
-m2f mkvm2f(v2f x, v2f y) {
+m2f vm2f(v2f x, v2f y) {
 	return (m2f) { .x = x, .y = y };
 }
 
@@ -172,7 +172,7 @@ m2f orientm2f(float theta) {
 }
 
 m2f absm2f(m2f m) {
-	return mkvm2f(absv2f(m.x), absv2f(m.y));
+	return vm2f(absv2f(m.x), absv2f(m.y));
 }
 
 v2f xaxism2f(m2f m) {
@@ -203,17 +203,30 @@ v2f mulm2fv(m2f m, v2f v) {
 v3f mkv3f(float x, float y, float z) {
 	return (v3f) { .x = x, .y = y, .z = z };
 }
-	
-float lenv3f(v3f v) {
-	return sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+
+v3f zerov3f() {
+	return mkv3f(0,0,0);
+}
+
+v3f addv3f(v3f v, v3f u) {
+	return mkv3f(v.x + u.x, v.y + u.y, v.z + u.z);
 }
 
 v3f divv3fs(v3f v, float s) {
 	return mkv3f(v.x / s, v.y / s, v.z / s);
 }
 
+float lenv3f(v3f v) {
+	return sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
+
 v4f mkv4f(float x, float y, float z, float w) {
 	return (v4f) { .x = x, .y = y, .z = z, .w = w };
+}
+
+v4f addv4f(v4f v, v4f u) {
+	return mkv4f(v.x + u.x, v.y + u.y, v.z + u.z, v.w + u.w);
 }
 
 v4f mulv4fs(v4f v, float s) {
@@ -221,19 +234,23 @@ v4f mulv4fs(v4f v, float s) {
 }
 
 m4f zerom4f() {
-	return mkvm4f(mkv4f(0,0,0,0), mkv4f(0,0,0,0), mkv4f(0,0,0,0), mkv4f(0,0,0,0));
+	return vm4f(mkv4f(0,0,0,0), mkv4f(0,0,0,0), mkv4f(0,0,0,0), mkv4f(0,0,0,0));
 }
 
 m4f eyem4f() {
-	return mkvm4f(mkv4f(1,0,0,0), mkv4f(0,1,0,0), mkv4f(0,0,1,0), mkv4f(0,0,0,1));
+	return vm4f(mkv4f(1,0,0,0), mkv4f(0,1,0,0), mkv4f(0,0,1,0), mkv4f(0,0,0,1));
 }
 
-m4f mkvm4f(v4f x, v4f y, v4f z, v4f w) {
+m4f vm4f(v4f x, v4f y, v4f z, v4f w) {
 	return (m4f) { .x = x, .y = y, .z = z, .w = w };
 }
 
+m4f addm4f(m4f m, m4f n) {
+	return vm4f(addv4f(m.x,n.x), addv4f(m.y,n.y), addv4f(m.z,n.z), addv4f(m.w,n.w));
+}
+
 m4f scalem4f(m4f m, v3f s) {
-	return mkvm4f(mulv4fs(m.x, s.x), mulv4fs(m.y, s.y), mulv4fs(m.z, s.z), m.w);
+	return vm4f(mulv4fs(m.x, s.x), mulv4fs(m.y, s.y), mulv4fs(m.z, s.z), m.w);
 }
 
 m4f translatem4f(v3f t) {
@@ -287,7 +304,18 @@ m4f perspm4f(float fovy, float aspect, float near, float far) {
 	return m;
 }
 
-// m4f orthom4f(float lf, float rt, float bot, float top, float near, float far);
+m4f orthom4f(float lf, float rt, float bot, float top, float near, float far) {
+	const float r_l = rt - lf;
+	const float t_b = top - bot;
+	const float f_n = far - near;
+	m4f m;
+	m.x = mkv4f(2 / r_l, 0, 0, 0);
+	m.y = mkv4f(0, 2 / t_b, 0, 0);
+	m.z = mkv4f(0, 0, -2 / f_n, 0);
+	m.w = mkv4f(-(rt + lf) / r_l, -(top + bot) / t_b, -(far + near) / f_n, 1);
+	return m;
+}
+
 
 m4f mulm4f(m4f m, m4f n) {
 	m4f o;
