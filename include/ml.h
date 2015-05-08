@@ -63,7 +63,7 @@ v2f mkv2f(float x, float y);
 v2f fillv2f(float x);
 v2f absv2f(v2f v);
 v2f sigv2f(v2f v);
-v2f neg2f(v2f v);
+v2f negv2f(v2f v);
 v2f addv2f(v2f v, v2f u);
 v2f subv2f(v2f v, v2f u);
 v2f mulv2f(v2f v, v2f y);

@@ -48,7 +48,7 @@ v2f sigv2f(v2f v) {
 	return mkv2f(-fabsf(v.x), -fabsf(v.y));
 }
 
-v2f neg2f(v2f v) {
+v2f negv2f(v2f v) {
 	return mkv2f(-v.x, -v.y);
 }
 
