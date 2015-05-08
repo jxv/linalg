@@ -58,6 +58,7 @@ float clampf(float l, float h, float x);
 bool eqf(float x, float y);
 float randf(float l, float h);
 bool biasgtf(float x, float y);
+float recipinff(float x);
 
 v2f mkv2f(float x, float y);
 v2f fillv2f(float x);

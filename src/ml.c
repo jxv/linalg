@@ -2,6 +2,10 @@
 #include <math.h>
 #include "ml.h"
 
+float recipinff(float x) {
+	return nearzerof(x) ? 0 : (1 / x);
+}
+
 float sqf(float x) {
 	return x * x;
 }
