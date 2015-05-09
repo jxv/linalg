@@ -36,56 +36,56 @@ bool biasgtf(float x, float y) {
 	return x >= y * biasrel + x * biasabs;
 }
 
-v2f mkv2f(float x, float y) {
+v2f _v2f(float x, float y) {
 	return (v2f) { .x = x, .y = y };
 }
 
 v2f fillv2f(float x) {
-	return mkv2f(x, x);
+	return _v2f(x, x);
 }
 
 v2f absv2f(v2f v) {
-	return mkv2f(fabsf(v.x), fabsf(v.y));
+	return _v2f(fabsf(v.x), fabsf(v.y));
 }
 
 v2f sigv2f(v2f v) {
-	return mkv2f(-fabsf(v.x), -fabsf(v.y));
+	return _v2f(-fabsf(v.x), -fabsf(v.y));
 }
 
 v2f negv2f(v2f v) {
-	return mkv2f(-v.x, -v.y);
+	return _v2f(-v.x, -v.y);
 }
 
 v2f addv2f(v2f v, v2f u) {
-	return mkv2f(v.x + u.x, v.y + u.y);
+	return _v2f(v.x + u.x, v.y + u.y);
 }
 
 v2f subv2f(v2f v, v2f u) {
-	return mkv2f(v.x - u.x, v.y - u.y);
+	return _v2f(v.x - u.x, v.y - u.y);
 }
 
 v2f mulv2f(v2f v, v2f u) {
-	return mkv2f(v.x * u.x, v.y * u.y);
+	return _v2f(v.x * u.x, v.y * u.y);
 }
 
 v2f divv2f(v2f v, v2f u) {
-	return mkv2f(v.x / u.x, v.y / u.y);
+	return _v2f(v.x / u.x, v.y / u.y);
 }
 
 v2f addv2fs(v2f v, float s) {
-	return mkv2f(v.x + s, v.y + s);
+	return _v2f(v.x + s, v.y + s);
 }
 
 v2f subv2fs(v2f v, float s) {
-	return mkv2f(v.x - s, v.y - s);
+	return _v2f(v.x - s, v.y - s);
 }
 
 v2f mulv2fs(v2f v, float s) {
-	return mkv2f(v.x * s, v.y * s);
+	return _v2f(v.x * s, v.y * s);
 }
 
 v2f divv2fs(v2f v, float s) {
-	return mkv2f(v.x / s, v.y / s);
+	return _v2f(v.x / s, v.y / s);
 }
 
 bool nearzerov2f(v2f v) {
@@ -126,20 +126,20 @@ v2f normv2f(v2f v) {
 v2f rotv2f(v2f x, float theta) {
 	const float c = cosf(theta);
 	const float s = sinf(theta);
-	return mkv2f(x.x * c - x.y * s, x.x * s + x.y * c);
+	return _v2f(x.x * c - x.y * s, x.x * s + x.y * c);
 }
 
 
 v2f clampv2f(v2f l, v2f h, v2f v) {
-	return mkv2f(clampf(l.x, h.x, v.x), clampf(l.y, h.y, v.y));
+	return _v2f(clampf(l.x, h.x, v.x), clampf(l.y, h.y, v.y));
 }
 
 v2f minv2f(v2f v, v2f u) {
-	return mkv2f(fminf(v.x, u.x), fminf(v.y, u.y));
+	return _v2f(fminf(v.x, u.x), fminf(v.y, u.y));
 }
 
 v2f maxv2f(v2f v, v2f u) {
-	return mkv2f(fmaxf(v.x, u.x), fmaxf(v.y, u.y));
+	return _v2f(fmaxf(v.x, u.x), fmaxf(v.y, u.y));
 }
 
 float crossv2f(v2f v, v2f u) {
@@ -147,14 +147,14 @@ float crossv2f(v2f v, v2f u) {
 }
 
 v2f crossv2fs(v2f v, float s) {
-	return mkv2f(s * v.y, -s * v.x);
+	return _v2f(s * v.y, -s * v.x);
 }
 
 v2f crosssv2f(float s, v2f v) {
-	return mkv2f(-s * v.y, s * v.x);
+	return _v2f(-s * v.y, s * v.x);
 }
 
-m2f mkm2f(float xx, float xy, float yx, float yy) {
+m2f _m2f(float xx, float xy, float yx, float yy) {
 	return (m2f) {
 		.xx = xx, .xy = xy,
 		.yx = yx, .yy = yy, 
@@ -166,13 +166,13 @@ m2f vm2f(v2f x, v2f y) {
 }
 
 m2f eyem2f() {
-	return mkm2f(1,0,0,1);
+	return _m2f(1,0,0,1);
 }
 
 m2f orientm2f(float theta) {
 	const float c = cosf(theta);
 	const float s = sinf(theta);
-	return mkm2f(c, -s, s, c);
+	return _m2f(c, -s, s, c);
 }
 
 m2f absm2f(m2f m) {
@@ -180,15 +180,15 @@ m2f absm2f(m2f m) {
 }
 
 v2f xaxism2f(m2f m) {
-	return mkv2f(m.xx, m.yx);
+	return _v2f(m.xx, m.yx);
 }
 
 v2f yaxism2f(m2f m) {
-	return mkv2f(m.xy, m.yy);
+	return _v2f(m.xy, m.yy);
 }
 
 m2f transposem2f(m2f m) {
-	return mkm2f(m.xx, m.yx, m.xy, m.yy);
+	return _m2f(m.xx, m.yx, m.xy, m.yy);
 }
 
 m2f mulm2f(m2f m, m2f n) {
@@ -201,23 +201,23 @@ m2f mulm2f(m2f m, m2f n) {
 }
 
 v2f mulm2fv(m2f m, v2f v) {
-	return mkv2f(m.xx * v.x + m.xy * v.y, m.yx * v.x + m.yy * v.y);
+	return _v2f(m.xx * v.x + m.xy * v.y, m.yx * v.x + m.yy * v.y);
 }
 
-v3f mkv3f(float x, float y, float z) {
+v3f _v3f(float x, float y, float z) {
 	return (v3f) { .x = x, .y = y, .z = z };
 }
 
 v3f zerov3f() {
-	return mkv3f(0,0,0);
+	return _v3f(0,0,0);
 }
 
 v3f addv3f(v3f v, v3f u) {
-	return mkv3f(v.x + u.x, v.y + u.y, v.z + u.z);
+	return _v3f(v.x + u.x, v.y + u.y, v.z + u.z);
 }
 
 v3f divv3fs(v3f v, float s) {
-	return mkv3f(v.x / s, v.y / s, v.z / s);
+	return _v3f(v.x / s, v.y / s, v.z / s);
 }
 
 float lenv3f(v3f v) {
@@ -225,24 +225,24 @@ float lenv3f(v3f v) {
 }
 
 
-v4f mkv4f(float x, float y, float z, float w) {
+v4f _v4f(float x, float y, float z, float w) {
 	return (v4f) { .x = x, .y = y, .z = z, .w = w };
 }
 
 v4f addv4f(v4f v, v4f u) {
-	return mkv4f(v.x + u.x, v.y + u.y, v.z + u.z, v.w + u.w);
+	return _v4f(v.x + u.x, v.y + u.y, v.z + u.z, v.w + u.w);
 }
 
 v4f mulv4fs(v4f v, float s) {
-	return mkv4f(v.x * s, v.y * s, v.z * s, v.w * s);
+	return _v4f(v.x * s, v.y * s, v.z * s, v.w * s);
 }
 
 m4f zerom4f() {
-	return vm4f(mkv4f(0,0,0,0), mkv4f(0,0,0,0), mkv4f(0,0,0,0), mkv4f(0,0,0,0));
+	return vm4f(_v4f(0,0,0,0), _v4f(0,0,0,0), _v4f(0,0,0,0), _v4f(0,0,0,0));
 }
 
 m4f eyem4f() {
-	return vm4f(mkv4f(1,0,0,0), mkv4f(0,1,0,0), mkv4f(0,0,1,0), mkv4f(0,0,0,1));
+	return vm4f(_v4f(1,0,0,0), _v4f(0,1,0,0), _v4f(0,0,1,0), _v4f(0,0,0,1));
 }
 
 m4f vm4f(v4f x, v4f y, v4f z, v4f w) {
@@ -250,16 +250,22 @@ m4f vm4f(v4f x, v4f y, v4f z, v4f w) {
 }
 
 m4f addm4f(m4f m, m4f n) {
-	return vm4f(addv4f(m.x,n.x), addv4f(m.y,n.y), addv4f(m.z,n.z), addv4f(m.w,n.w));
+	return vm4f(addv4f(m.x,n.x),
+		    addv4f(m.y,n.y),
+		    addv4f(m.z,n.z),
+		    addv4f(m.w,n.w));
 }
 
 m4f scalem4f(m4f m, v3f s) {
-	return vm4f(mulv4fs(m.x, s.x), mulv4fs(m.y, s.y), mulv4fs(m.z, s.z), m.w);
+	return vm4f(mulv4fs(m.x, s.x),
+		    mulv4fs(m.y, s.y),
+		    mulv4fs(m.z, s.z),
+		    m.w);
 }
 
 m4f translatem4f(v3f t) {
 	m4f m = zerom4f();
-	m.w = mkv4f(t.x, t.y, t.z, 0);
+	m.w = _v4f(t.x, t.y, t.z, 0);
 	return m;
 }
 
@@ -275,13 +281,17 @@ m4f rotm4f(float theta, v3f v) {
 		m.val[i * 4 + (i + 1) % 3] =  u.val[(i + 2) % 3] * s;
 		m.val[i * 4 + (i + 2) % 3] = -u.val[(i + 1) % 3] * s;
 	}
-	for (int i = 0; i < 3; i++)
-		for (int j = 0; j < 3; j++)
-			m.val[i * 4 + j] += c1 * u.val[i] * u.val[j] + (i == j ? c : 0);
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			float val = c1 * u.val[i] * u.val[j] + (i == j ? c : 0);
+			m.val[i * 4 + j] += val;
+		}
+	}
 	return m;
 }
 
-m4f frustumm4f(float lf, float rt, float bot, float top, float near, float far) {
+m4f frustumm4f(float lf, float rt, float bot, float top,
+	       float near, float far) {
 	const float a = 2 * near / (rt - lf);
 	const float b = 2 * near / (top - bot);
 	const float c = (rt + lf) / (rt - lf);
@@ -289,10 +299,10 @@ m4f frustumm4f(float lf, float rt, float bot, float top, float near, float far) 
 	const float e = -(far + near) / (far - near);
 	const float f = -2 * far * near / (far - near);
 	m4f m;
-	m.x = mkv4f(a,0,0,0);
-	m.y = mkv4f(0,b,0,0);
-	m.z = mkv4f(c,d,e,-1);
-	m.w = mkv4f(0,0,f,1);
+	m.x = _v4f(a,0,0,0);
+	m.y = _v4f(0,b,0,0);
+	m.z = _v4f(c,d,e,-1);
+	m.w = _v4f(0,0,f,1);
 	return m;
 }
 
@@ -309,14 +319,14 @@ m4f perspm4f(float fovy, float aspect, float near, float far) {
 }
 
 m4f orthom4f(float lf, float rt, float bot, float top, float near, float far) {
-	const float r_l = rt - lf;
-	const float t_b = top - bot;
-	const float f_n = far - near;
+	const float rl = rt - lf;
+	const float tb = top - bot;
+	const float fn = far - near;
 	m4f m;
-	m.x = mkv4f(2 / r_l, 0, 0, 0);
-	m.y = mkv4f(0, 2 / t_b, 0, 0);
-	m.z = mkv4f(0, 0, -2 / f_n, 0);
-	m.w = mkv4f(-(rt + lf) / r_l, -(top + bot) / t_b, -(far + near) / f_n, 1);
+	m.x = _v4f(2 / rl, 0, 0, 0);
+	m.y = _v4f(0, 2 / tb, 0, 0);
+	m.z = _v4f(0, 0, -2 / fn, 0);
+	m.w = _v4f(-(rt + lf) / rl, -(top + bot) / tb, -(far + near) / fn, 1);
 	return m;
 }
 
@@ -326,8 +336,10 @@ m4f mulm4f(m4f m, m4f n) {
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			o.val[j * 4 + i] = 0.0;
-			for (int k = 0; k < 4; k++)
-				o.val[j * 4 + i] += m.val[k * 4 + i] * n.val[j * 4 + k];
+			for (int k = 0; k < 4; k++) {
+				float val = m.val[k * 4 + i] * n.val[j * 4 + k];
+				o.val[j * 4 + i] += val;
+			}
 		}
 	}
 	return o;

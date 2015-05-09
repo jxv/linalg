@@ -60,7 +60,7 @@ float randf(float l, float h);
 bool biasgtf(float x, float y);
 float recipinff(float x);
 
-v2f mkv2f(float x, float y);
+v2f _v2f(float x, float y);
 v2f fillv2f(float x);
 v2f absv2f(v2f v);
 v2f sigv2f(v2f v);
@@ -89,7 +89,7 @@ float crossv2f(v2f v, v2f u);
 v2f crossv2fs(v2f v, float s);
 v2f crosssv2f(float s, v2f v);
 
-m2f mkm2f(float xx, float xy, float yx, float yy);
+m2f _m2f(float xx, float xy, float yx, float yy);
 m2f vm2f(v2f x, v2f y);
 m2f orientm2f(float theta);
 m2f absm2f(m2f m);
@@ -99,13 +99,13 @@ m2f transposem2f(m2f m);
 m2f mulm2f(m2f m, m2f n);
 v2f mulm2fv(m2f m, v2f v);
 
-v3f mkv3f(float x, float y, float z);
+v3f _v3f(float x, float y, float z);
 v3f zerov3f();
 v3f addv3f(v3f v, v3f u);
 v3f divv3fs(v3f v, float s);
 float lenv3f(v3f v);
 
-v4f mkv4f(float x, float y, float z, float w);
+v4f _v4f(float x, float y, float z, float w);
 v4f addv4f(v4f v, v4f u);
 v4f mulv4fs(v4f m, float s);
 m4f scalem4f(m4f m, v3f s);
