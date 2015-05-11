@@ -220,6 +220,10 @@ v3f mulv3f(v3f v, v3f u) {
 	return _v3f(v.x * u.x, v.y * u.y, v.z * u.z);
 }
 
+v3f divv3f(v3f v, v3f u) {
+	return _v3f(v.x / u.x, v.y / u.y, v.z / u.z);
+}
+
 v3f divv3fs(v3f v, float s) {
 	return _v3f(v.x / s, v.y / s, v.z / s);
 }

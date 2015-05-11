@@ -103,6 +103,7 @@ v3f _v3f(float x, float y, float z);
 v3f zerov3f();
 v3f addv3f(v3f v, v3f u);
 v3f mulv3f(v3f v, v3f u);
+v3f divv3f(v3f v, v3f u);
 v3f divv3fs(v3f v, float s);
 float lenv3f(v3f v);
 
