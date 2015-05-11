@@ -19,12 +19,16 @@ typedef struct {
 	};
 } m2f;
 
-typedef struct {
-	union {
-		struct { float x, y, z; };
-		float val[3];
-	};
-} v3f;
+#define V3(A,B) \
+typedef struct {\
+	union {\
+		struct { A x, y, z; };\
+		A val[3];\
+	};\
+} v3##B;
+
+V3(float,f)
+V3(unsigned int, ui)
 
 typedef struct {
 	union {
