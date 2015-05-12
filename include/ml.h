@@ -19,16 +19,17 @@ typedef struct {
 	};
 } m2f;
 
-#define V3(A,B) \
+#define V3(A,B)\
 typedef struct {\
 	union {\
-		struct { A x, y, z; };\
-		A val[3];\
+		struct { B x, y, z; };\
+		B val[3];\
 	};\
-} v3##B;
+} v3##A;
 
-V3(float,f)
-V3(unsigned int, ui)
+V3(f,float)
+V3(ui,unsigned int)
+V3(si,short int)
 
 typedef struct {
 	union {
@@ -103,7 +104,13 @@ m2f transposem2f(m2f m);
 m2f mulm2f(m2f m, m2f n);
 v2f mulm2fv(m2f m, v2f v);
 
-v3f _v3f(float x, float y, float z);
+#define V3_DECLARE(A,B)\
+v3##A _v3##A(B x, B y, B z);
+
+V3_DECLARE(f,float)
+V3_DECLARE(ui,unsigned int)
+V3_DECLARE(si,short int)
+
 v3f zerov3f();
 v3f addv3f(v3f v, v3f u);
 v3f mulv3f(v3f v, v3f u);

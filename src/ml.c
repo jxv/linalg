@@ -204,9 +204,14 @@ v2f mulm2fv(m2f m, v2f v) {
 	return _v2f(m.xx * v.x + m.xy * v.y, m.yx * v.x + m.yy * v.y);
 }
 
-v3f _v3f(float x, float y, float z) {
-	return (v3f) { .x = x, .y = y, .z = z };
+#define V3_DEFINE(A,B)\
+v3##A _v3##A(B x, B y, B z) {\
+	return (v3##A) { .x = x, .y = y, .z = z };\
 }
+
+V3_DEFINE(f,float)
+V3_DEFINE(ui,unsigned int)
+V3_DEFINE(si,short int)
 
 v3f zerov3f() {
 	return _v3f(0,0,0);
