@@ -3,12 +3,16 @@
 
 #include <stdbool.h>
 
-typedef struct {
-	union {
-		struct { float x, y; };
-		float val[2];
-	};
-} v2f;
+#define V2(A,B)\
+typedef struct {\
+	union {\
+		struct { B x, y; };\
+		B val[2];\
+	};\
+} v2##A;
+
+V2(f,float)
+V2(i,int)
 
 typedef struct {
 	union {
@@ -65,7 +69,12 @@ float randf(float l, float h);
 bool biasgtf(float x, float y);
 float recipinff(float x);
 
-v2f _v2f(float x, float y);
+#define V2_DECLARE(A,B)\
+v2##A _v2##A(B x, B y);
+
+V2_DECLARE(f,float)
+V2_DECLARE(i,int)
+
 v2f fillv2f(float x);
 v2f absv2f(v2f v);
 v2f sigv2f(v2f v);

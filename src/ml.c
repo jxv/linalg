@@ -36,9 +36,13 @@ bool biasgtf(float x, float y) {
 	return x >= y * biasrel + x * biasabs;
 }
 
-v2f _v2f(float x, float y) {
-	return (v2f) { .x = x, .y = y };
+#define V2_DEFINE(A,B)\
+v2##A _v2##A(B x, B y) {\
+	return (v2##A) { .x = x, .y = y };\
 }
+
+V2_DEFINE(f,float)
+V2_DEFINE(i,int)
 
 v2f fillv2f(float x) {
 	return _v2f(x, x);
