@@ -361,3 +361,11 @@ m4f mulm4f(m4f m, m4f n) {
 	}
 	return o;
 }
+
+m3f m3fm4f(m4f m) {
+	return (m3f) {
+		.x = _v3f(m.x.x, m.x.y, m.x.z),
+		.y = _v3f(m.y.x, m.y.y, m.y.z),
+		.z = _v3f(m.z.x, m.z.y, m.z.z),
+	};
+}

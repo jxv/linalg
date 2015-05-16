@@ -141,5 +141,6 @@ m4f frustumm4f(float lf, float rt, float bot, float top, float near, float far);
 m4f perspm4f(float fovy, float aspect, float near, float far);
 m4f orthom4f(float lf, float rt, float bot, float top, float near, float far);
 m4f mulm4f(m4f m, m4f n);
+m3f m3fm4f(m4f m);
 
 #endif
