@@ -174,6 +174,18 @@ v3f zerov3f() {
 	return _v3f(0,0,0);
 }
 
+v3f fillv3f(float x) {
+	return _v3f(x,x,x);
+}
+
+v3f absv3f(v3f v) {
+	return _v3f(fabsf(v.x), fabsf(v.y), fabsf(v.z));
+}
+
+v3f sigv3f(v3f v) {
+	return _v3f(-fabsf(v.x), -fabsf(v.y), -fabsf(v.z));
+}
+
 v3f negv3f(v3f v) {
 	return _v3f(-v.x, -v.y, -v.z);
 }
@@ -234,12 +246,25 @@ v4##A _v4##A(B x, B y, B z, B w) {\
 
 V4_DEFINE(f,float)
 
+
+v4f v4v3f(v3f v, float w) {
+	return _v4f(v.x, v.y, v.z, w);
+}
+
 v4f zerov4f() {
 	return _v4f(0,0,0,0);
 }
 
-v4f v4fv3f(v3f v, float w) {
-	return _v4f(v.x, v.y, v.z, w);
+v4f fillv4f(float x) {
+	return _v4f(x,x,x,x);
+}
+
+v4f absv4f(v4f v) {
+	return _v4f(fabsf(v.x), fabsf(v.y), fabsf(v.z), fabsf(v.w));
+}
+
+v4f sigv4f(v4f v) {
+	return _v4f(-fabsf(v.x), -fabsf(v.y), -fabsf(v.z), -fabsf(v.w));
 }
 
 v4f negv4f(v4f v) {
@@ -360,6 +385,26 @@ m2f eyem2f() {
 	return _m2f(1,0,0,1);
 }
 
+m2f zerom2f() {
+	return vm2f(zerov2f(), zerov2f());
+}
+
+m2f fillm2f(float x) {
+	return vm2f(fillv2f(x), fillv2f(x));
+}
+
+m2f absm2f(m2f m) {
+	return vm2f(absv2f(m.x), absv2f(m.y));
+}
+
+m2f sigm2f(m2f m) {
+	return vm2f(sigv2f(m.x), sigv2f(m.y));
+}
+
+m2f negm2f(m2f m) {
+	return vm2f(negv2f(m.x), negv2f(m.y));
+}
+
 m2f mulm2f(m2f m, m2f n) {
 	return (m2f) {
 		.xx = m.xx * n.xx + m.xy * n.yx,
@@ -377,10 +422,6 @@ m2f orientm2f(float theta) {
 	const float c = cosf(theta);
 	const float s = sinf(theta);
 	return _m2f(c, -s, s, c);
-}
-
-m2f absm2f(m2f m) {
-	return vm2f(absv2f(m.x), absv2f(m.y));
 }
 
 v2f xaxism2f(m2f m) {
@@ -406,21 +447,44 @@ m3##A _m3##A(B xx, B xy, B xz, B yx, B yy, B yz, B zx, B zy, B zz) {\
 
 M3_DEFINE(f,float)
 
+m3f m3m4f(m4f m) {
+	return (m3f) {
+		.x = _v3f(m.xx, m.xy, m.xz),
+		.y = _v3f(m.yx, m.yy, m.yz),
+		.z = _v3f(m.zx, m.zy, m.zz),
+	};
+}
+
 m3f vm3f(v3f x, v3f y, v3f z) {
 	return (m3f) { .x = x, .y = y, .z = z };
 }
 
-m3f transposem3f(m3f m) {
-	return _m3f(m.xx, m.yx, m.zx, m.xy, m.yy, m.zy, m.xz, m.yz, m.zz);
+m3f eyem3f() {
+	return _m3f(1,0,0,0,1,0,0,0,1);
 }
 
-m4f m4fm3f(m3f m) {
-	return vm4f(
-		_v4f(m.xx, m.xy, m.xz, 0),
-		_v4f(m.yx, m.yy, m.yz, 0),
-		_v4f(m.zx, m.zy, m.zz, 0),
-		_v4f(0,0,0,1)
-	);
+m3f zerom3f() {
+	return vm3f(zerov3f(), zerov3f(), zerov3f());
+}
+
+m3f fillm3f(float x) {
+	return vm3f(fillv3f(x), fillv3f(x), fillv3f(x));
+}
+
+m3f absm3f(m3f m) {
+	return vm3f(absv3f(m.x), absv3f(m.y), absv3f(m.z));
+}
+
+m3f sigm3f(m3f m) {
+	return vm3f(sigv3f(m.x), sigv3f(m.y), sigv3f(m.z));
+}
+
+m3f negm3f(m3f m) {
+	return vm3f(negv3f(m.x), negv3f(m.y), negv3f(m.z));
+}
+
+m3f transposem3f(m3f m) {
+	return _m3f(m.xx, m.yx, m.zx, m.xy, m.yy, m.zy, m.xz, m.yz, m.zz);
 }
 
 #define M4_DEFINE(A,B)\
@@ -435,38 +499,48 @@ m4##A _m4##A(B xx, B xy, B xz, B xw, B yx, B yy, B yz, B yw, B zx, B zy, B zz, B
 
 M4_DEFINE(f,float)
 
+m4f m4m3f(m3f m) {
+	return vm4f(
+		_v4f(m.xx, m.xy, m.xz, 0),
+		_v4f(m.yx, m.yy, m.yz, 0),
+		_v4f(m.zx, m.zy, m.zz, 0),
+		_v4f(0,0,0,1)
+	);
+}
 m4f vm4f(v4f x, v4f y, v4f z, v4f w) {
 	return (m4f) { .x = x, .y = y, .z = z, .w = w };
+}
+
+m4f eyem4f() {
+	return _m4f(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
 }
 
 m4f zerom4f() {
 	return vm4f(zerov4f(), zerov4f(), zerov4f(), zerov4f());
 }
 
-m4f eyem4f() {
-	return vm4f(_v4f(1,0,0,0), _v4f(0,1,0,0), _v4f(0,0,1,0), _v4f(0,0,0,1));
+m4f fillm4f(float x) {
+	return vm4f(fillv4f(x), fillv4f(x), fillv4f(x), fillv4f(x));
 }
 
-m3f m3fm4f(m4f m) {
-	return (m3f) {
-		.x = _v3f(m.xx, m.xy, m.xz),
-		.y = _v3f(m.yx, m.yy, m.yz),
-		.z = _v3f(m.zx, m.zy, m.zz),
-	};
+m4f absm4f(m4f m) {
+	return vm4f(absv4f(m.x), absv4f(m.y), absv4f(m.z), absv4f(m.w));
+}
+
+m4f sigm4f(m4f m) {
+	return vm4f(sigv4f(m.x), sigv4f(m.y), sigv4f(m.z), sigv4f(m.w));
+}
+
+m4f negm4f(m4f m) {
+	return vm4f(negv4f(m.x), negv4f(m.y), negv4f(m.z), negv4f(m.w));
 }
 
 m4f addm4f(m4f m, m4f n) {
-	return vm4f(addv4f(m.x,n.x),
-		    addv4f(m.y,n.y),
-		    addv4f(m.z,n.z),
-		    addv4f(m.w,n.w));
+	return vm4f(addv4f(m.x,n.x), addv4f(m.y,n.y), addv4f(m.z,n.z), addv4f(m.w,n.w));
 }
 
 m4f subm4f(m4f m, m4f n) {
-	return vm4f(subv4f(m.x,n.x),
-		    subv4f(m.y,n.y),
-		    subv4f(m.z,n.z),
-		    subv4f(m.w,n.w));
+	return vm4f(subv4f(m.x,n.x), subv4f(m.y,n.y), subv4f(m.z,n.z), subv4f(m.w,n.w));
 }
 
 m4f mulm4f(m4f m, m4f n) {
@@ -497,10 +571,7 @@ m4f transposem4f(m4f m) {
 }
 
 m4f scalem4f(m4f m, v3f s) {
-	return vm4f(mulv4fs(m.x, s.x),
-		    mulv4fs(m.y, s.y),
-		    mulv4fs(m.z, s.z),
-		    m.w);
+	return vm4f(mulv4fs(m.x, s.x), mulv4fs(m.y, s.y), mulv4fs(m.z, s.z), m.w);
 }
 
 m4f translatem4f(v3f t) {
@@ -586,8 +657,8 @@ m4f lookatf(v3f eye, v3f target, v3f up) {
 	v3f z = normv3f(subv3f(eye, target));
 	v3f x = normv3f(crossv3f(up, z));
 	v3f y = normv3f(crossv3f(z, x));
-	m4f m = vm4f(v4fv3f(x, 0), v4fv3f(y, 0), v4fv3f(z, 0), _v4f(0,0,0,1));
-	v4f eye_ = mulm4fv(m, v4fv3f(negv3f(eye), -1));
+	m4f m = vm4f(v4v3f(x, 0), v4v3f(y, 0), v4v3f(z, 0), _v4f(0,0,0,1));
+	v4f eye_ = mulm4fv(m, v4v3f(negv3f(eye), -1));
 	m = transposem4f(m);
 	m.w = eye_;
 	return m;

@@ -135,6 +135,9 @@ V3_DECLARE(ui,unsigned int)
 V3_DECLARE(si,short int)
 
 v3f zerov3f();
+v3f fillv3f(float x);
+v3f absv3f(v3f v);
+v3f sigv3f(v3f v);
 v3f negv3f(v3f v);
 v3f addv3f(v3f v, v3f u);
 v3f subv3f(v3f v, v3f u);
@@ -153,8 +156,11 @@ v4##A _v4##A(B x, B y, B z, B w);
 
 V4_DECLARE(f,float)
 
+v4f v4v3f(v3f v, float w);
 v4f zerov4f();
-v4f v4fv3f(v3f v, float w);
+v4f fillv4f(float x);
+v4f absv4f(v4f v);
+v4f sigv4f(v4f v);
 v4f negv4f(v4f v);
 v4f addv4f(v4f v, v4f u);
 v4f subv4f(v4f v, v4f u);
@@ -180,6 +186,12 @@ m2##A _m2##A(B xx, B xy, B yx, B yy);
 M2_DECLARE(f,float)
 
 m2f vm2f(v2f x, v2f y);
+m2f eyem2f();
+m2f zerom2f();
+m2f fillm2f(float x);
+m2f absm2f(m2f m);
+m2f sigm2f(m2f m);
+m2f negm2f(m2f m);
 m2f mulm2f(m2f m, m2f n);
 v2f mulm2fv(m2f m, v2f v);
 m2f orientm2f(float theta);
@@ -193,20 +205,30 @@ m3##A _m3##A(B xx, B xy, B xz, B yx, B yy, B yz, B zx, B zy, B zz);
 
 M3_DECLARE(f,float)
 
+m3f m3m4f(m4f m);
 m3f vm3f(v3f x, v3f y, v3f z);
 m3f eyem3f();
+m3f zerom3f();
+m3f fillm3f(float x);
+m3f absm3f(m3f m);
+m3f sigm3f(m3f m);
+m3f negm3f(m3f m);
 m3f transposem3f(m3f m);
-m4f m4fm3f(m3f m);
 
 #define M4_DECLARE(A,B)\
 m4##A _m4##A(B xx, B xy, B xz, B xw, B yx, B yy, B yz, B yw, B zx, B zy, B zz, B zw, B wx, B wy, B wz, B ww);
 
 M4_DECLARE(f,float)
 
+m4f m4m3f(m3f m);
 m4f vm4f(v4f x, v4f y, v4f z, v4f w);
-m4f scalem4f(m4f m, v3f s);
 m4f eyem4f();
-m3f m3fm4f(m4f m);
+m4f zerom4f();
+m4f fillm4f(float x);
+m4f absm4f(m4f m);
+m4f sigm4f(m4f m);
+m4f negm4f(m4f m);
+m4f scalem4f(m4f m, v3f s);
 m4f addm4f(m4f m, m4f n);
 m4f subm4f(m4f m, m4f n);
 m4f mulm4f(m4f m, m4f n);
