@@ -350,6 +350,8 @@ m2##A _m2##A(B xx, B xy, B yx, B yy) {\
 	};\
 }
 
+M2_DEFINE(f,float)
+
 m2f vm2f(v2f x, v2f y) {
 	return (m2f) { .x = x, .y = y };
 }
@@ -430,6 +432,8 @@ m4##A _m4##A(B xx, B xy, B xz, B xw, B yx, B yy, B yz, B yw, B zx, B zy, B zz, B
 		.w = _v4##A(wx,wy,wz,ww),\
 	};\
 }
+
+M4_DEFINE(f,float)
 
 m4f vm4f(v4f x, v4f y, v4f z, v4f w) {
 	return (m4f) { .x = x, .y = y, .z = z, .w = w };
