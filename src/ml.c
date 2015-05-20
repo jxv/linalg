@@ -612,7 +612,7 @@ m4f translatef(v3f t) {
 	return m;
 }
 
-m4f frustum4f(float lf, float rt, float bot, float top,
+m4f frustumf(float lf, float rt, float bot, float top,
 	       float near, float far) {
 	const float a = 2 * near / (rt - lf);
 	const float b = 2 * near / (top - bot);
