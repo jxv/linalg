@@ -128,7 +128,7 @@ v2f normv2f(v2f v) {
 	const float len = lenv2f(v);
 	if (nearzerof(len))
 		return v;
-	return divv2fs(v, len);
+	return mulv2fs(v, 1 / len);
 }
 
 v2f rotv2f(v2f x, float theta) {
@@ -285,7 +285,7 @@ v4f lerpv4f(v4f v, v4f u, float t) {
 }
 
 v4f normv4f(v4f v) {
-	return divv4fs(v, sqrtf(dotv4f(v,v)));
+	return mulv4fs(v, 1 / sqrtf(dotv4f(v,v)));
 }
 
 float dotv4f(v4f v, v4f u) {
@@ -525,7 +525,7 @@ m4f rotm4f(float theta, v3f v) {
 	const float s = sinf(theta);
 	const float c1 = 1 - c;
 	const float len = lenv3f(v);
-	const v3f u = divv3fs(v, len);
+	const v3f u = mulv3fs(v, 1 / len);
 	m4f m = zerom4f();
 	m.val[15] = 1.0;
 	for (int i = 0; i < 3; i++) {
