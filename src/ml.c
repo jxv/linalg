@@ -652,7 +652,6 @@ m4f orthom4f(float lf, float rt, float bot, float top, float near, float far) {
 	return m;
 }
 
-
 m4f lookatf(v3f eye, v3f target, v3f up) {
 	v3f z = normv3f(subv3f(eye, target));
 	v3f x = normv3f(crossv3f(up, z));
@@ -663,4 +662,3 @@ m4f lookatf(v3f eye, v3f target, v3f up) {
 	m.w = eye_;
 	return m;
 }
-
