@@ -235,6 +235,8 @@ m4f mulm4f(m4f m, m4f n);
 v4f mulm4fv(m4f m, v4f v);
 m4f transposem4f(m4f m);
 m4f rotanglem4f(float theta);
+m4f rotym4f(float theta);
+m4f rotxm4f(float theta);
 m4f rotm4f(float theta, v3f v);
 m4f translatef(v3f t);
 m4f frustumf(float lf, float rt, float bot, float top, float near, float far);

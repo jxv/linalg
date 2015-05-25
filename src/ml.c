@@ -585,6 +585,28 @@ m4f rotanglem4f(float theta) {
 	return m;
 }
 
+m4f rotym4f(float theta) {
+	const float c = cosf(theta);
+	const float s = sinf(theta);
+	m4f m = eyem4f();
+	m.xx = c;
+	m.xz = s;
+	m.zx = -s;
+	m.zz = c;
+	return m;
+}
+
+m4f rotxm4f(float theta) {
+	const float c = cosf(theta);
+	const float s = sinf(theta);
+	m4f m = eyem4f();
+	m.yy = c;
+	m.yz = -s;
+	m.zy = s;
+	m.zz = c;
+	return m;
+}
+
 m4f rotm4f(float theta, v3f v) {
 	const float c = cosf(theta);
 	const float s = sinf(theta);
