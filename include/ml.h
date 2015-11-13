@@ -5,10 +5,10 @@
 
 #define V2(A,B)\
 typedef struct {\
-	union {\
-		struct { B x, y; };\
-		B val[2];\
-	};\
+    union {\
+        struct { B x, y; };\
+        B val[2];\
+    };\
 } v2##A;
 
 V2(f,float)
@@ -16,10 +16,10 @@ V2(i,int)
 
 #define V3(A,B)\
 typedef struct {\
-	union {\
-		struct { B x, y, z; };\
-		B val[3];\
-	};\
+    union {\
+        struct { B x, y, z; };\
+        B val[3];\
+    };\
 } v3##A;
 
 V3(f,float)
@@ -28,57 +28,57 @@ V3(si,short int)
 
 #define V4(A,B)\
 typedef struct {\
-	union {\
-		struct { B x, y, z, w; };\
-		B val[4];\
-	};\
+    union {\
+        struct { B x, y, z, w; };\
+        B val[4];\
+    };\
 } v4##A;
 
 V4(f,float)
 
 #define M2(A,B)\
 typedef struct {\
-	union {\
-		struct { v2##A x, y; };\
-		struct { B xx, xy, yx, yy; };\
-		v2##A v[2];\
-		B val[4];\
-	};\
+    union {\
+        struct { v2##A x, y; };\
+        struct { B xx, xy, yx, yy; };\
+        v2##A v[2];\
+        B val[4];\
+    };\
 } m2##A;
 
 M2(f,float)
 
 #define M3(A,B)\
 typedef struct {\
-	union {\
-		struct { v3##A x, y, z; };\
-		struct { B xx, xy, xz, yx, yy, yz, zx, zy, zz; };\
-		v3##A v[3];\
-		B val[9];\
-	};\
+    union {\
+        struct { v3##A x, y, z; };\
+        struct { B xx, xy, xz, yx, yy, yz, zx, zy, zz; };\
+        v3##A v[3];\
+        B val[9];\
+    };\
 } m3##A;
 
 M3(f,float)
 
 #define M4(A,B)\
 typedef struct {\
-	union {\
-		struct { v4##A x, y, z, w; };\
-		struct { B xx, xy, xz, xw, yy, yx, yz, yw, zx, zy, zz, zw, wx, wy, wz, ww; };\
-		v4##A v[4];\
-		B val[16];\
-	};\
+    union {\
+        struct { v4##A x, y, z, w; };\
+        struct { B xx, xy, xz, xw, yy, yx, yz, yw, zx, zy, zz, zw, wx, wy, wz, ww; };\
+        v4##A v[4];\
+        B val[16];\
+    };\
 } m4##A;
 
 M4(f,float)
 
 #define Q(A,B)\
 typedef struct {\
-	union {\
-		struct { B x, y, z, w; };\
-		v4##A v;\
-		B val[4];\
-	};\
+    union {\
+        struct { B x, y, z, w; };\
+        v4##A v;\
+        B val[4];\
+    };\
 } q##A;
 
 Q(f,float)
