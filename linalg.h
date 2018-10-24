@@ -1,5 +1,5 @@
-#ifndef ML_H
-#define ML_H
+#ifndef LINALG_H
+#define LINALG_H
 
 #include <stdbool.h>
 

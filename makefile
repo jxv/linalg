@@ -1,15 +1,15 @@
 all:
-	cc src/ml.c -c -o src/ml.o -I./include -Wall -Werror -pedantic -std=c11 -ffast-math -g -O2 -lc -lm -D_GNU_SOURCE
-	ar rvs libml.a src/*.o
+	cc linalg.c -c -o linalg.o -I. -Wall -Werror -pedantic -std=c11 -ffast-math -g -O2 -lc -lm -D_GNU_SOURCE
+	ar rvs liblinalg.a *.o
 clean:
-	rm libml.a src/*.o
+	rm liblinalg.a *.o
 install:
-	cp include/*.h /usr/include
-	cp libml.a /usr/lib/
+	cp *.h /usr/include
+	cp liblinalg.a /usr/lib/
 
 gcw0:
-	mipsel-gcw0-linux-uclibc-cc src/ml.c -c -o src/ml.o -I./include -Wall -Werror -pedantic -std=c11 -ffast-math -g -O2 -lc -lm -D_GNU_SOURCE
-	mipsel-gcw0-linux-uclibc-ar rvs libml.a src/*.o
+	mipsel-gcw0-linux-uclibc-cc linalg.c -c -o linalg.o -I. -Wall -Werror -pedantic -std=c11 -ffast-math -g -O2 -lc -lm -D_GNU_SOURCE
+	mipsel-gcw0-linux-uclibc-ar rvs liblinalg.a *.o
 install_gcw0:
-	cp include/*.h /opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/include
-	cp libml.a /opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/lib
+	cp *.h /opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/include
+	cp liblinalg.a /opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/lib

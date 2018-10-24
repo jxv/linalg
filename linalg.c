@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
-#include "ml.h"
+#include "linalg.h"
 
 float recipinff(float x) {
     return nearzerof(x) ? 0 : (1 / x);

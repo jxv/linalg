@@ -1,0 +1,3 @@
+linalg.o
+liblinalg.a
+.*
