@@ -83,14 +83,17 @@ typedef struct {\
 
 Q(f,float)
 
-bool nearzerof(float x);
-float sqf(float x);
-float cubef(float x);
-float clampf(float l, float h, float x);
-bool eqf(float x, float y);
-float randf(float l, float h);
-bool biasgtf(float x, float y);
-float recipinff(float x);
+#define VALUE_DECLARE(A,B)\
+bool nearzero##A(const B x);\
+B sq##A(const B x);\
+B cube##A(const B x);\
+B clamp##A(const B l, const B h, const B x);\
+bool eq##A(const B x, const B y);\
+B rand##A(const B l, const B h);\
+bool biasgt##A(const B x, const B y);\
+float recipinf##A(const B x);
+
+VALUE_DECLARE(f,float)
 
 #define V2_DECLARE(A,B)\
 v2##A _v2##A(B x, B y);

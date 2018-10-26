@@ -2,39 +2,42 @@
 #include <math.h>
 #include "linalg.h"
 
-float recipinff(float x) {
-    return nearzerof(x) ? 0 : (1 / x);
+#define VALUE_DEFINE(A,B)\
+B recipinf##A(const B x) {\
+    return nearzero##A(x) ? 0 : (1 / x);\
+}\
+\
+B sq##A(const B x) {\
+    return x * x;\
+}\
+\
+B cube##A(const B x) {\
+    return x * x * x;\
+}\
+\
+bool nearzero##A(const B x) {\
+    return fabs##A(x) < 1e-6;\
+}\
+\
+B clamp##A(const B l, const B h, const B x) {\
+    return fmin##A(h, fmax##A(l, x));\
+}\
+\
+bool eq##A(const B x, const B y) {\
+    return fabs##A(x - y) <= 1e-6;\
+}\
+\
+B rand##A(const B l, const B h) {\
+    return l + (h - l) * ((B)rand() / RAND_MAX);\
+}\
+\
+bool biasgt##A(const B x, const B y) {\
+    const B biasrel = (B)0.95;\
+    const B biasabs = (B)0.01;\
+    return x >= y * biasrel + x * biasabs;\
 }
 
-float sqf(float x) {
-    return x * x;
-}
-
-float cubef(float x) {
-    return x * x * x;
-}
-
-bool nearzerof(float x) {
-    return fabsf(x) < 1e-6;
-}
-
-float clampf(float l, float h, float x) {
-    return fminf(h, fmaxf(l, x));
-}
-
-bool eqf(float x, float y) {
-    return fabsf(x - y) <= 1e-6;
-}
-
-float randf(float l, float h) {
-    return l + (h - l) * ((float)rand() / RAND_MAX);
-}
-
-bool biasgtf(float x, float y) {
-    const float biasrel = 0.95f;
-    const float biasabs = 0.01f;
-    return x >= y * biasrel + x * biasabs;
-}
+VALUE_DEFINE(f,float)
 
 #define V2_DEFINE(A,B)\
 v2##A _v2##A(B x, B y) {\
