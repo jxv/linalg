@@ -608,8 +608,8 @@ m4##A scalem4##A(const m4##A m, const v3##A s) {\
 }\
 \
 m4##A rotanglem4##A(const B theta) {\
-    const B c = cosf(theta);\
-    const B s = sinf(theta);\
+    const B c = cos##A(theta);\
+    const B s = sin##A(theta);\
     m4##A m = eyem4##A();\
     m.xx = c;\
     m.xy = s;\
@@ -619,8 +619,8 @@ m4##A rotanglem4##A(const B theta) {\
 }\
 \
 m4##A rotym4##A(const B theta) {\
-    const B c = cosf(theta);\
-    const B s = sinf(theta);\
+    const B c = cos##A(theta);\
+    const B s = sin##A(theta);\
     m4##A m = eyem4##A();\
     m.xx = c;\
     m.xz = s;\
@@ -630,8 +630,8 @@ m4##A rotym4##A(const B theta) {\
 }\
 \
 m4##A rotxm4##A(const B theta) {\
-    const B c = cosf(theta);\
-    const B s = sinf(theta);\
+    const B c = cos##A(theta);\
+    const B s = sin##A(theta);\
     m4##A m = eyem4##A();\
     m.yy = c;\
     m.yz = -s;\
@@ -641,8 +641,8 @@ m4##A rotxm4##A(const B theta) {\
 }\
 \
 m4##A rotm4##A(const B theta, const v3##A v) {\
-    const B c = cosf(theta);\
-    const B s = sinf(theta);\
+    const B c = cos##A(theta);\
+    const B s = sin##A(theta);\
     const B c1 = 1 - c;\
     const B len = lenv3##A(v);\
     const v3##A u = mulv3n##A(v, 1 / len);\

@@ -11,14 +11,20 @@
 #define fabsld fabsl
 #define sind sin
 #define cosd cos
+#define tand tan
 #define asind asin
 #define acosd acos
+#define atand atan
+#define atan2d atan2
 #define sqrtd sqrt
 #define sinld sinl
 #define cosld cosl
-#define sqrtld sqrtl
+#define tanld tanl
 #define asinld asinl
 #define acosld acosl
+#define atanld atanl
+#define atan2ld atan2l
+#define sqrtld sqrtl
 
 #define LINALG_V2_STRUCT(A,B)\
 typedef struct {\
