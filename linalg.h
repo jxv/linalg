@@ -124,7 +124,7 @@ LINALG_M3_STRUCT(ld,long double)
 typedef struct {\
     union {\
         struct { v4##A x, y, z, w; };\
-        struct { B xx, xy, xz, xw, yy, yx, yz, yw, zx, zy, zz, zw, wx, wy, wz, ww; };\
+        struct { B xx, xy, xz, xw, yx, yy, yz, yw, zx, zy, zz, zw, wx, wy, wz, ww; };\
         v4##A v[4];\
         B val[16];\
     };\
@@ -212,7 +212,7 @@ LINALG_V2_FP_DECLARE(f,float)
 LINALG_V2_FP_DECLARE(d,double)
 
 #define LINALG_V3_DECLARE(A,B)\
-v3##A _v3##A(B x, B y, B z);
+v3##A _v3##A(const B x, const B y, const B z);
 
 LINALG_V3_DECLARE(f,float)
 LINALG_V3_DECLARE(d,double)
@@ -239,7 +239,7 @@ LINALG_V3_FP_DECLARE(f,float)
 LINALG_V3_FP_DECLARE(d,double)
 
 #define LINALG_V4_DECLARE(A,B)\
-v4##A _v4##A(B x, B y, B z, B w);
+v4##A _v4##A(const B x, const B y, const B z, const B w);
 
 LINALG_V4_DECLARE(f,float)
 LINALG_V4_DECLARE(d,double)
@@ -277,7 +277,7 @@ LINALG_Q_DECLARE(f,float)
 LINALG_Q_DECLARE(d,double)
 
 #define LINALG_M2_DECLARE(A,B)\
-m2##A _m2##A(B xx, B xy, B yx, B yy);
+m2##A _m2##A(const B xx, const B xy, const B yx, const B yy);
 
 LINALG_M2_DECLARE(f,float)
 LINALG_M2_DECLARE(d,double)
@@ -302,7 +302,7 @@ LINALG_M2_FP_DECLARE(f,float)
 LINALG_M2_FP_DECLARE(d,double)
 
 #define LINALG_M3_DECLARE(A,B)\
-m3##A _m3##A(B xx, B xy, B xz, B yx, B yy, B yz, B zx, B zy, B zz);
+m3##A _m3##A(const B xx, const B xy, const B xz, const B yx, const B yy, const B yz, const B zx, const B zy, const B zz);
 
 LINALG_M3_DECLARE(f,float)
 LINALG_M3_DECLARE(d,double)
@@ -322,17 +322,17 @@ LINALG_M3_FP_DECLARE(f,float)
 LINALG_M3_FP_DECLARE(d,double)
 
 #define LINALG_M4_DECLARE(A,B)\
-m4##A _m4##A(B xx, B xy, B xz, B xw, B yx, B yy, B yz, B yw, B zx, B zy, B zz, B zw, B wx, B wy, B wz, B ww);
+m4##A _m4##A(const B xx, const B xy, const B xz, const B xw, const B yx, const B yy, const B yz, const B yw, const B zx, const B zy, const B zz, const B zw, const B wx, const B wy, const B wz, const B ww);
 
 LINALG_M4_DECLARE(f,float)
 LINALG_M4_DECLARE(d,double)
 
 #define LINALG_M4_FP_DECLARE(A,B)\
-m4##A m4m3##A(const m3##A m);\
 m4##A vm4##A(const v4##A x, const v4##A y, const v4##A z, const v4##A w);\
 m4##A eyem4##A(void);\
 m4##A zerom4##A(void);\
 m4##A fillm4##A(const B x);\
+m4##A m4m3##A(const m3##A m);\
 m4##A absm4##A(const m4##A m);\
 m4##A sigm4##A(const m4##A m);\
 m4##A negm4##A(const m4##A m);\

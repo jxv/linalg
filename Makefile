@@ -1,5 +1,6 @@
 all:
-	cc linalg.c -c -o linalg.o -I. -Wall -Werror -pedantic -std=c11 -ffast-math -g -O2 -lc -lm -D_GNU_SOURCE
+	# cc linalg.c -c -o linalg.o -I. -Wall -Werror -pedantic -std=c11 -ffast-math -g -O2 -lc -lm -D_GNU_SOURCE
+	cc linalg.c -c -o linalg.o -I. -Wall -Werror -pedantic -std=c11 -ffast-math -g -O2 -D_GNU_SOURCE
 	ar rvs liblinalg.a *.o
 clean:
 	rm liblinalg.a *.o

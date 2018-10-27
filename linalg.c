@@ -44,7 +44,7 @@ LINALG_VALUE_DEFINE(f,float)
 LINALG_VALUE_DEFINE(d,double)
 
 #define LINALG_V2_DEFINE(A,B)\
-v2##A _v2##A(B x, B y) {\
+v2##A _v2##A(const B x, const B y) {\
     return (v2##A) { .x = x, .y = y };\
 }\
 \
@@ -174,7 +174,7 @@ LINALG_V2_FLOATING_DEFINE(f,float)
 LINALG_V2_FLOATING_DEFINE(d,double)
 
 #define LINALG_V3_DEFINE(A,B)\
-v3##A _v3##A(B x, B y, B z) {\
+v3##A _v3##A(const B x, const B y, const B z) {\
     return (v3##A) { .x = x, .y = y, .z = z };\
 }
 
@@ -253,7 +253,7 @@ B dotv3##A(const v3##A v, const v3##A u) {\
 LINALG_V3_FP_DEFINE(f,float)
 
 #define LINALG_V4_DEFINE(A,B)\
-v4##A _v4##A(B x, B y, B z, B w) {\
+v4##A _v4##A(const B x, const B y, const B z, const B w) {\
     return (v4##A) { .x = x, .y = y, .z = z, .w = w };\
 }
 
@@ -389,7 +389,7 @@ LINALG_Q_DEFINE(f,float)
 LINALG_Q_DEFINE(d,double)
 
 #define LINALG_M2_DEFINE(A,B)\
-m2##A _m2##A(B xx, B xy, B yx, B yy) {\
+m2##A _m2##A(const B xx, const B xy, const B yx, const B yy) {\
     return (m2##A) {\
         .x = _v2##A(xx,xy),\
         .y = _v2##A(yx,yy),\
@@ -462,7 +462,7 @@ LINALG_M2_FP_DEFINE(f,float)
 LINALG_M2_FP_DEFINE(d,double)
 
 #define LINALG_M3_DEFINE(A,B)\
-m3##A _m3##A(B xx, B xy, B xz, B yx, B yy, B yz, B zx, B zy, B zz) {\
+m3##A _m3##A(const B xx, const B xy, const B xz, const B yx, const B yy, const B yz, const B zx, const B zy, const B zz) {\
     return (m3##A) {\
         .x = _v3##A(xx,xy,xz),\
         .y = _v3##A(yx,yy,yz),\
@@ -518,7 +518,7 @@ LINALG_M3_FP_DEFINE(f,float)
 LINALG_M3_FP_DEFINE(d,double)
 
 #define LINALG_M4_DEFINE(A,B)\
-m4##A _m4##A(B xx, B xy, B xz, B xw, B yx, B yy, B yz, B yw, B zx, B zy, B zz, B zw, B wx, B wy, B wz, B ww) {\
+m4##A _m4##A(const B xx, const B xy, const B xz, const B xw, const B yx, const B yy, const B yz, const B yw, const B zx, const B zy, const B zz, const B zw, const B wx, const B wy, const B wz, const B ww) {\
     return (m4##A) {\
         .x = _v4##A(xx,xy,xz,xw),\
         .y = _v4##A(yx,yy,yz,yw),\

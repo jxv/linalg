@@ -70,3 +70,149 @@ v2f absv2f(const v2f v);
 v2f sigv2f(const v2f v);
 bool nearzerov2f(const v2f v);
 ```
+### 3D Vector
+
+Using `v3f` as the example.
+
+```c
+typedef struct {
+  union {
+    struct { float x, y, z; };
+    float val[3];
+  };
+} v3f;
+```
+
+#### Constructors
+
+```c
+v3f _v3f(const float x, const float y, const float z);
+v3f zerov3f(void);
+v3f fillv3f(const float x);
+```
+
+### 4D Vector
+
+Using `v4f` as the example.
+
+```c
+typedef struct {
+  union {
+    struct { float x, y, z, w; };
+    float val[4];
+  };
+} v4f;
+```
+
+#### Constructors
+
+```c
+v4f _v4f(const float x, const float y, const float z, const float w);
+v4f v4v3f(const v3f v, const float x);
+v4f zerov4f(void);
+v4f fillv4f(const float x);
+```
+
+### Quaternion
+
+Using `qf` as the example.
+
+```c
+typedef struct {
+  union {
+    struct { float x, y, z, w; };
+    v4f v;
+    float val[4];
+  };
+} qf;
+```
+
+### 2D Matrix
+
+Using `m2f` as the example.
+
+```c
+typedef struct {
+  union {
+    struct { v2f x, y; };
+    struct { float xx, xy, yx, yy; };
+    v2f v[2];
+    float val[4];
+  };
+} m2f;
+```
+
+#### Constructors
+
+```c
+m2f _m2f(const float xx, const float xy, const float yx, const float yy);
+m2f vm2f(const v2f x, const v2f y);
+m2f eyem2f(void);
+m2f zerom2f(void);
+m2f fillm2f(const float x);
+```
+
+### 3D Matrix
+
+Using `m3f` as the example.
+
+```c
+typedef struct {
+  union {
+    struct { v3f x, y, z; };
+    struct { float xx, xy, xz, yx, yy, yz, zx, zy, zz; };
+    v3f v[3];
+    float val[9];
+  };
+} m3f;
+```
+
+#### Constructors
+
+```c
+m3f _m3f(
+   const float xx, const float xy, const float xz, const float yx, const float yy, const float yz,
+   const float zx, const float zy, const float zz);
+m3f vm3f(const v3f x, const v3f y, const v3f z);
+m3f eyem3f(void);
+m3f zerom3f(void);
+m3f fillm3f(const float x);
+m3f m3m4f(const m4f m);
+```
+
+### 4D Matrix
+
+Using `m4f` as the example.
+
+```c
+typedef struct {
+  union {
+    struct { v4f x, y, z, w; };
+    struct { float xx, xy, xz, xw, yx, yy, yz, yw, zx, zy, zz, zw, wx, wy, wz, ww; };
+    v4f v[4];
+    float val[16];
+  };
+} m4f;
+```
+
+#### Constructors
+
+```c
+m4f _m4f(
+   const float xx, const float xy, const float xz, const float xw, const float yx, const float yy, const float yz, const float yw,
+   const float zx, const float zy, const float zz, const float zw, const float wx, const float wy, const float wz, const flost ww);
+m4f vm4f(const v4f x, const v4f y, const v4f z);
+m4f eyem4f(void);
+m4f zerom3f(void);
+m4f fillm4f(const float x);
+m4f m4m3f(const m3f m);
+```
+
+#### Camera (`m4f`, `m4d`, and `m4ld` only)
+
+```c
+m4f frustumf(const float lf, const float rt, const float bot, const float top, const float near, const float far);
+m4f perspf(const float fovy, const float aspect, const float near, const float far);
+m4f orthof(const float lf, const float rt, const float bot, const float top, const float near, const float far);
+m4f lookatf(const v3f eye, const v3f target, const v3f up);
+```
