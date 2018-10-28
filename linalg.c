@@ -43,7 +43,7 @@ bool biasgt##A(const B x, const B y) {\
 LINALG_VALUE_DEFINE(f,float)
 LINALG_VALUE_DEFINE(d,double)
 
-#define LINALG_V2_DEFINE(A,B)\
+#define LINALG_V2_CTOR(A,B)\
 v2##A _v2##A(const B x, const B y) {\
     return (v2##A) { .x = x, .y = y };\
 }\
@@ -54,8 +54,12 @@ v2##A zerov2##A(void) {\
 \
 v2##A fillv2##A(const B x) {\
     return _v2##A(x, x);\
-}\
-\
+}
+
+LINALG_V2_CTOR(f,float)
+LINALG_V2_CTOR(d,double)
+
+#define LINALG_V2_FUNC(A,B)\
 v2##A negv2##A(const v2##A v) {\
     return _v2##A(-v.x, -v.y);\
 }\
@@ -92,9 +96,9 @@ v2##A divv2n##A(const v2##A v, const B s) {\
     return _v2##A(v.x / s, v.y / s);\
 }
 
-LINALG_V2_DEFINE(f,float)
-LINALG_V2_DEFINE(d,double)
-LINALG_V2_DEFINE(i,int)
+LINALG_V2_FUNC(f,float)
+LINALG_V2_FUNC(d,double)
+LINALG_V2_FUNC(i,int)
 
 #define LINALG_V2_FLOATING_DEFINE(A,B)\
 v2##A absv2##A(const v2##A v) {\
@@ -180,7 +184,7 @@ v3##A _v3##A(const B x, const B y, const B z) {\
 
 LINALG_V3_DEFINE(f,float)
 
-#define LINALG_V3_FP_DEFINE(A,B)\
+#define LINALG_V3_FLOATING_DEFINE(A,B)\
 v3##A zerov3##A(void) {\
     return _v3##A(0,0,0);\
 }\
@@ -250,7 +254,7 @@ B dotv3##A(const v3##A v, const v3##A u) {\
     return v.x * u.x + v.y * u.y + v.z * u.z;\
 }
 
-LINALG_V3_FP_DEFINE(f,float)
+LINALG_V3_FLOATING_DEFINE(f,float)
 
 #define LINALG_V4_DEFINE(A,B)\
 v4##A _v4##A(const B x, const B y, const B z, const B w) {\
@@ -260,7 +264,7 @@ v4##A _v4##A(const B x, const B y, const B z, const B w) {\
 LINALG_V4_DEFINE(f,float)
 
 
-#define LINALG_V4_FP_DEFINE(A,B)\
+#define LINALG_V4_FLOATING_DEFINE(A,B)\
 v4##A v4v3##A(const v3##A v, const B w) {\
     return _v4##A(v.x, v.y, v.z, w);\
 }\
@@ -331,8 +335,8 @@ B dotv4##A(const v4##A v, const v4##A u) {\
     return v.x * u.x + v.y * u.y + v.z * u.z + v.w * u.w;\
 }
 
-LINALG_V4_FP_DEFINE(f,float)
-LINALG_V4_FP_DEFINE(d,double)
+LINALG_V4_FLOATING_DEFINE(f,float)
+LINALG_V4_FLOATING_DEFINE(d,double)
 
 #define LINALG_Q_DEFINE(A,B)\
 v4##A slerpv4##A(const v4##A a, const v4##A b, const B t) {\
@@ -398,7 +402,7 @@ m2##A _m2##A(const B xx, const B xy, const B yx, const B yy) {\
 
 LINALG_M2_DEFINE(f,float)
 
-#define LINALG_M2_FP_DEFINE(A,B)\
+#define LINALG_M2_FLOATING_DEFINE(A,B)\
 m2##A vm2##A(const v2##A x, const v2##A y) {\
     return (m2##A) { .x = x, .y = y };\
 }\
@@ -458,8 +462,8 @@ m2##A transposem2##A(const m2##A m) {\
     return _m2##A(m.xx, m.yx, m.xy, m.yy);\
 }
 
-LINALG_M2_FP_DEFINE(f,float)
-LINALG_M2_FP_DEFINE(d,double)
+LINALG_M2_FLOATING_DEFINE(f,float)
+LINALG_M2_FLOATING_DEFINE(d,double)
 
 #define LINALG_M3_DEFINE(A,B)\
 m3##A _m3##A(const B xx, const B xy, const B xz, const B yx, const B yy, const B yz, const B zx, const B zy, const B zz) {\
@@ -473,7 +477,7 @@ m3##A _m3##A(const B xx, const B xy, const B xz, const B yx, const B yy, const B
 LINALG_M3_DEFINE(f,float)
 LINALG_M3_DEFINE(d,double)
 
-#define LINALG_M3_FP_DEFINE(A,B)\
+#define LINALG_M3_FLOATING_DEFINE(A,B)\
 m3##A m3m4##A(const m4##A m) {\
     return (m3##A) {\
         .x = _v3##A(m.xx, m.xy, m.xz),\
@@ -514,8 +518,8 @@ m3##A transposem3##A(const m3##A m) {\
     return _m3##A(m.xx, m.yx, m.zx, m.xy, m.yy, m.zy, m.xz, m.yz, m.zz);\
 }
 
-LINALG_M3_FP_DEFINE(f,float)
-LINALG_M3_FP_DEFINE(d,double)
+LINALG_M3_FLOATING_DEFINE(f,float)
+LINALG_M3_FLOATING_DEFINE(d,double)
 
 #define LINALG_M4_DEFINE(A,B)\
 m4##A _m4##A(const B xx, const B xy, const B xz, const B xw, const B yx, const B yy, const B yz, const B yw, const B zx, const B zy, const B zz, const B zw, const B wx, const B wy, const B wz, const B ww) {\
@@ -530,7 +534,7 @@ m4##A _m4##A(const B xx, const B xy, const B xz, const B xw, const B yx, const B
 LINALG_M4_DEFINE(f,float)
 LINALG_M4_DEFINE(d,double)
 
-#define LINALG_M4_FP_DEFINE(A,B)\
+#define LINALG_M4_FLOATING_DEFINE(A,B)\
 m4##A m4m3##A(const m3##A m) {\
     return vm4##A(\
         _v4##A(m.xx, m.xy, m.xz, 0),\
@@ -716,5 +720,5 @@ m4##A lookat##A(const v3##A eye, const v3##A target, const v3##A up) {\
     return vm4##A(m_.x, m_.y, m_.z, eye_);\
 }
 
-LINALG_M4_FP_DEFINE(f,float)
-LINALG_M4_FP_DEFINE(d,double)
+LINALG_M4_FLOATING_DEFINE(f,float)
+LINALG_M4_FLOATING_DEFINE(d,double)
