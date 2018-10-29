@@ -39,6 +39,29 @@ Struct's name follows a pattern of `v2*` where the `*` is a value's abbreviation
 
 ---
 
+## Values
+
+
+Using `float` as the example value.
+
+```
+bool nearzerof(const float x);
+
+float sqf(const float x);
+
+float cubef(const float x);
+
+float clampf(const float l, const float h, const float x);
+
+bool eqf(const float x, const float y);
+
+float randf(const float l, const float h);
+
+bool biasgtf(const float x, const float y);
+
+float recipinff(const float x);
+```
+
 ## Vectors
 
 ### 2D Vector
@@ -224,7 +247,7 @@ m4f _m4f(
    const float xx, const float xy, const float xz, const float xw,
    const float yx, const float yy, const float yz, const float yw,
    const float zx, const float zy, const float zz, const float zw,
-   const float wx, const float wy, const float wz, const flost ww);
+   const float wx, const float wy, const float wz, const float ww);
 
 m4f vm4f(const v4f x, const v4f y, const v4f z);
 

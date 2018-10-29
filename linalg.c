@@ -6,8 +6,8 @@
 #define LINALG_MIN(x) ((x) <= (-(x)) ? (x) : (-(x)))
 
 #define LINALG_VALUE_DEFINE(A,B)\
-B recipinf##A(const B x) {\
-    return nearzero##A(x) ? 0 : (1 / x);\
+bool nearzero##A(const B x) {\
+    return fabs##A(x) < 1e-6;\
 }\
 \
 B sq##A(const B x) {\
@@ -16,10 +16,6 @@ B sq##A(const B x) {\
 \
 B cube##A(const B x) {\
     return x * x * x;\
-}\
-\
-bool nearzero##A(const B x) {\
-    return fabs##A(x) < 1e-6;\
 }\
 \
 B clamp##A(const B l, const B h, const B x) {\
@@ -38,6 +34,10 @@ bool biasgt##A(const B x, const B y) {\
     const B biasrel = (B)0.95;\
     const B biasabs = (B)0.01;\
     return x >= y * biasrel + x * biasabs;\
+}\
+\
+B recipinf##A(const B x) {\
+    return nearzero##A(x) ? 0 : (1 / x);\
 }
 
 LINALG_VALUE_DEFINE(f,float)
@@ -60,6 +60,18 @@ LINALG_V2_CTOR(f,float)
 LINALG_V2_CTOR(d,double)
 
 #define LINALG_V2_FUNC(A,B)\
+v2##A absv2##A(const v2##A v) {\
+    return _v2##A(fabs##A(v.x), fabs##A(v.y));\
+}\
+\
+v2##A sigv2##A(const v2##A v) {\
+    return _v2##A(-fabs##A(v.x), -fabs##A(v.y));\
+}\
+\
+bool eqv2##A(const v2##A v, const v2##A u) {\
+    return eq##A(v.x, u.x) &&  eq##A(v.y, u.y);\
+}\
+\
 v2##A negv2##A(const v2##A v) {\
     return _v2##A(-v.x, -v.y);\
 }\
@@ -94,27 +106,38 @@ v2##A mulv2n##A(const v2##A v, const B s) {\
 \
 v2##A divv2n##A(const v2##A v, const B s) {\
     return _v2##A(v.x / s, v.y / s);\
+}\
+\
+B dotv2##A(const v2##A v, const v2##A u) {\
+    return v.x * u.x + v.y * u.y;\
+}\
+\
+B crossv2##A(const v2##A v, const v2##A u) {\
+    return v.x * u.y - v.y * u.x;\
+}\
+\
+v2##A crossv2n##A(const v2##A v, const B s) {\
+    return _v2##A(s * v.y, -s * v.x);\
+}\
+\
+v2##A crosssv2##A(const B s, const v2##A v) {\
+    return _v2##A(-s * v.y, s * v.x);\
+}\
+\
+v2##A minv2##A(const v2##A v, const v2##A u) {\
+    return _v2##A(fmin##A(v.x, u.x), fmin##A(v.y, u.y));\
+}\
+\
+v2##A maxv2##A(const v2##A v, const v2##A u) {\
+    return _v2##A(fmax##A(v.x, u.x), fmax##A(v.y, u.y));\
 }
 
 LINALG_V2_FUNC(f,float)
 LINALG_V2_FUNC(d,double)
-LINALG_V2_FUNC(i,int)
 
 #define LINALG_V2_FLOATING_DEFINE(A,B)\
-v2##A absv2##A(const v2##A v) {\
-    return _v2##A(fabs##A(v.x), fabs##A(v.y));\
-}\
-\
-v2##A sigv2##A(const v2##A v) {\
-    return _v2##A(-fabs##A(v.x), -fabs##A(v.y));\
-}\
-\
 bool nearzerov2##A(const v2##A v) {\
     return nearzero##A(v.x) && nearzero##A(v.y);\
-}\
-\
-bool eqv2##A(const v2##A v, const v2##A u) {\
-    return eq##A(v.x, u.x) &&  eq##A(v.y, u.y);\
 }\
 \
 v2##A lerp##A(const v2##A v, const v2##A u, const B t) {\
@@ -123,10 +146,6 @@ v2##A lerp##A(const v2##A v, const v2##A u, const B t) {\
 \
 B sqlenv2##A(const v2##A v) {\
     return sq##A(v.x) + sq##A(v.y);\
-}\
-\
-B dotv2##A(const v2##A v, const v2##A u) {\
-    return v.x * u.x + v.y * u.y;\
 }\
 \
 B lenv2##A(const v2##A v) {\
@@ -152,53 +171,37 @@ v2##A rotv2##A(const v2##A x, const B theta) {\
 \
 v2##A clampv2##A(const v2##A l, const v2##A h, const v2##A v) {\
     return _v2##A(clamp##A(l.x, h.x, v.x), clamp##A(l.y, h.y, v.y));\
-}\
-\
-v2##A minv2##A(const v2##A v, const v2##A u) {\
-    return _v2##A(fmin##A(v.x, u.x), fmin##A(v.y, u.y));\
-}\
-\
-v2##A maxv2##A(const v2##A v, const v2##A u) {\
-    return _v2##A(fmax##A(v.x, u.x), fmax##A(v.y, u.y));\
-}\
-\
-B crossv2##A(const v2##A v, const v2##A u) {\
-    return v.x * u.y - v.y * u.x;\
-}\
-\
-v2##A crossv2n##A(const v2##A v, const B s) {\
-    return _v2##A(s * v.y, -s * v.x);\
-}\
-\
-v2##A crosssv2##A(const B s, const v2##A v) {\
-    return _v2##A(-s * v.y, s * v.x);\
 }
 
 LINALG_V2_FLOATING_DEFINE(f,float)
 LINALG_V2_FLOATING_DEFINE(d,double)
 
-#define LINALG_V3_DEFINE(A,B)\
+#define LINALG_V3_CTOR_DEFINE(A,B)\
 v3##A _v3##A(const B x, const B y, const B z) {\
     return (v3##A) { .x = x, .y = y, .z = z };\
-}
-
-LINALG_V3_DEFINE(f,float)
-
-#define LINALG_V3_FLOATING_DEFINE(A,B)\
+}\
 v3##A zerov3##A(void) {\
     return _v3##A(0,0,0);\
 }\
 \
 v3##A fillv3##A(const B x) {\
     return _v3##A(x,x,x);\
+}
+
+LINALG_V3_CTOR_DEFINE(f,float)
+LINALG_V3_CTOR_DEFINE(d,double)
+
+#define LINALG_V3_FUNC_DEFINE(A,B)\
+bool eqv3##A(const v3##A v, const v3##A u) {\
+    return v.x == u.x && v.y == u.y && v.z == u.z;\
 }\
 \
 v3##A absv3##A(const v3##A v) {\
-    return _v3##A(fabsf(v.x), fabsf(v.y), fabsf(v.z));\
+    return _v3##A(fabs##A(v.x), fabs##A(v.y), fabs##A(v.z));\
 }\
 \
 v3##A sigv3##A(const v3##A v) {\
-    return _v3##A(-fabsf(v.x), -fabsf(v.y), -fabsf(v.z));\
+    return _v3##A(-fabs##A(v.x), -fabs##A(v.y), -fabs##A(v.z));\
 }\
 \
 v3##A negv3##A(const v3##A v) {\
@@ -229,19 +232,6 @@ v3##A divv3n##A(const v3##A v, const B s) {\
     return _v3##A(v.x / s, v.y / s, v.z / s);\
 }\
 \
-bool eqv3##A(const v3##A v, const v3##A u) {\
-    return v.x == u.x && v.y == u.y && v.z == u.z;\
-}\
-\
-B lenv3##A(const v3##A v) {\
-    return sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);\
-}\
-\
-v3##A normv3##A(const v3##A v) {\
-    const B len = lenv3##A(v);\
-    return _v3##A(v.x / len, v.y / len, v.z / len);\
-}\
-\
 v3##A crossv3##A(const v3##A v, const v3##A u) {\
     return _v3##A(\
         v.y * u.z - v.z * u.y,\
@@ -254,17 +244,27 @@ B dotv3##A(const v3##A v, const v3##A u) {\
     return v.x * u.x + v.y * u.y + v.z * u.z;\
 }
 
-LINALG_V3_FLOATING_DEFINE(f,float)
+LINALG_V3_FUNC_DEFINE(f,float)
+LINALG_V3_FUNC_DEFINE(d,double)
 
-#define LINALG_V4_DEFINE(A,B)\
-v4##A _v4##A(const B x, const B y, const B z, const B w) {\
-    return (v4##A) { .x = x, .y = y, .z = z, .w = w };\
+#define LINALG_V3_FLOATING_DEFINE(A,B)\
+B lenv3##A(const v3##A v) {\
+    return sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);\
+}\
+\
+v3##A normv3##A(const v3##A v) {\
+    const B len = lenv3##A(v);\
+    return _v3##A(v.x / len, v.y / len, v.z / len);\
 }
 
-LINALG_V4_DEFINE(f,float)
+LINALG_V3_FLOATING_DEFINE(f,float)
+LINALG_V3_FLOATING_DEFINE(d,double)
 
-
-#define LINALG_V4_FLOATING_DEFINE(A,B)\
+#define LINALG_V4_CTOR_DEFINE(A,B)\
+v4##A _v4##A(const B x, const B y, const B z, const B w) {\
+    return (v4##A) { .x = x, .y = y, .z = z, .w = w };\
+}\
+\
 v4##A v4v3##A(const v3##A v, const B w) {\
     return _v4##A(v.x, v.y, v.z, w);\
 }\
@@ -275,6 +275,14 @@ v4##A zerov4##A(void) {\
 \
 v4##A fillv4##A(const B x) {\
     return _v4##A(x,x,x,x);\
+}
+
+LINALG_V4_CTOR_DEFINE(f,float)
+LINALG_V4_CTOR_DEFINE(d,double)
+
+#define LINALG_V4_FLOATING_DEFINE(A,B)\
+bool eqv4##A(const v4##A v, const v4##A u) {\
+    return v.x == u.x && v.y == u.y && v.z == u.z && v.w == u.w;\
 }\
 \
 v4##A absv4##A(const v4##A v) {\
@@ -313,10 +321,6 @@ v4##A divv4##A##s(const v4##A v, const B s) {\
     return _v4##A(v.x / s, v.y / s, v.z / s, v.w / s);\
 }\
 \
-bool eqv4##A(const v4##A v, const v4##A u) {\
-    return v.x == u.x && v.y == u.y && v.z == u.z && v.w == u.w;\
-}\
-\
 v4##A lerpv4##A(const v4##A v, const v4##A u, const B t) {\
     const B s = 1 - t;\
     return _v4##A(\
@@ -329,10 +333,6 @@ v4##A lerpv4##A(const v4##A v, const v4##A u, const B t) {\
 \
 v4##A normv4##A(const v4##A v) {\
     return mulv4##A##s(v, 1 / sqrtf(dotv4##A(v,v)));\
-}\
-\
-B dotv4##A(const v4##A v, const v4##A u) {\
-    return v.x * u.x + v.y * u.y + v.z * u.z + v.w * u.w;\
 }
 
 LINALG_V4_FLOATING_DEFINE(f,float)
@@ -392,17 +392,14 @@ v4##A v4axisangle##A(const v3##A axis, const B theta) {\
 LINALG_Q_DEFINE(f,float)
 LINALG_Q_DEFINE(d,double)
 
-#define LINALG_M2_DEFINE(A,B)\
+#define LINALG_M2_CTOR_DEFINE(A,B)\
 m2##A _m2##A(const B xx, const B xy, const B yx, const B yy) {\
     return (m2##A) {\
         .x = _v2##A(xx,xy),\
         .y = _v2##A(yx,yy),\
     };\
-}
-
-LINALG_M2_DEFINE(f,float)
-
-#define LINALG_M2_FLOATING_DEFINE(A,B)\
+}\
+\
 m2##A vm2##A(const v2##A x, const v2##A y) {\
     return (m2##A) { .x = x, .y = y };\
 }\
@@ -417,8 +414,12 @@ m2##A zerom2##A(void) {\
 \
 m2##A fillm2##A(const B x) {\
     return vm2##A(fillv2##A(x), fillv2##A(x));\
-}\
-\
+}
+
+LINALG_M2_CTOR_DEFINE(f,float)
+LINALG_M2_CTOR_DEFINE(d,double)
+
+#define LINALG_M2_FUNC_DEFINE(A,B)\
 m2##A absm2##A(const m2##A m) {\
     return vm2##A(absv2##A(m.x), absv2##A(m.y));\
 }\
@@ -444,12 +445,6 @@ v2##A mulm2##A##v(const m2##A m, const v2##A v) {\
     return _v2##A(m.xx * v.x + m.xy * v.y, m.yx * v.x + m.yy * v.y);\
 }\
 \
-m2##A orientm2##A(const B theta) {\
-    const B c = cos##A(theta);\
-    const B s = sin##A(theta);\
-    return _m2##A(c, -s, s, c);\
-}\
-\
 v2##A xaxism2##A(const m2##A m) {\
     return _v2##A(m.xx, m.yx);\
 }\
@@ -462,22 +457,25 @@ m2##A transposem2##A(const m2##A m) {\
     return _m2##A(m.xx, m.yx, m.xy, m.yy);\
 }
 
+#define LINALG_M2_FLOATING_DEFINE(A,B)\
+m2##A orientm2##A(const B theta) {\
+    const B c = cos##A(theta);\
+    const B s = sin##A(theta);\
+    return _m2##A(c, -s, s, c);\
+}
+
 LINALG_M2_FLOATING_DEFINE(f,float)
 LINALG_M2_FLOATING_DEFINE(d,double)
 
-#define LINALG_M3_DEFINE(A,B)\
+#define LINALG_M3_CTOR_DEFINE(A,B)\
 m3##A _m3##A(const B xx, const B xy, const B xz, const B yx, const B yy, const B yz, const B zx, const B zy, const B zz) {\
     return (m3##A) {\
         .x = _v3##A(xx,xy,xz),\
         .y = _v3##A(yx,yy,yz),\
         .z = _v3##A(zx,zy,zz),\
     };\
-}
-
-LINALG_M3_DEFINE(f,float)
-LINALG_M3_DEFINE(d,double)
-
-#define LINALG_M3_FLOATING_DEFINE(A,B)\
+}\
+\
 m3##A m3m4##A(const m4##A m) {\
     return (m3##A) {\
         .x = _v3##A(m.xx, m.xy, m.xz),\
@@ -500,8 +498,12 @@ m3##A zerom3##A(void) {\
 \
 m3##A fillm3##A(const B x) {\
     return vm3##A(fillv3##A(x), fillv3##A(x), fillv3##A(x));\
-}\
-\
+}
+
+LINALG_M3_CTOR_DEFINE(f,float)
+LINALG_M3_CTOR_DEFINE(d,double)
+
+#define LINALG_M3_FUNC_DEFINE(A,B)\
 m3##A absm3##A(const m3##A m) {\
     return vm3##A(absv3##A(m.x), absv3##A(m.y), absv3##A(m.z));\
 }\
@@ -518,10 +520,10 @@ m3##A transposem3##A(const m3##A m) {\
     return _m3##A(m.xx, m.yx, m.zx, m.xy, m.yy, m.zy, m.xz, m.yz, m.zz);\
 }
 
-LINALG_M3_FLOATING_DEFINE(f,float)
-LINALG_M3_FLOATING_DEFINE(d,double)
+LINALG_M3_FUNC_DEFINE(f,float)
+LINALG_M3_FUNC_DEFINE(d,double)
 
-#define LINALG_M4_DEFINE(A,B)\
+#define LINALG_M4_CTOR_DEFINE(A,B)\
 m4##A _m4##A(const B xx, const B xy, const B xz, const B xw, const B yx, const B yy, const B yz, const B yw, const B zx, const B zy, const B zz, const B zw, const B wx, const B wy, const B wz, const B ww) {\
     return (m4##A) {\
         .x = _v4##A(xx,xy,xz,xw),\
@@ -529,12 +531,8 @@ m4##A _m4##A(const B xx, const B xy, const B xz, const B xw, const B yx, const B
         .z = _v4##A(zx,zy,zz,zw),\
         .w = _v4##A(wx,wy,wz,ww),\
     };\
-}
-
-LINALG_M4_DEFINE(f,float)
-LINALG_M4_DEFINE(d,double)
-
-#define LINALG_M4_FLOATING_DEFINE(A,B)\
+}\
+\
 m4##A m4m3##A(const m3##A m) {\
     return vm4##A(\
         _v4##A(m.xx, m.xy, m.xz, 0),\
@@ -554,14 +552,18 @@ m4##A eyem4##A(void) {\
 \
 m4##A zerom4##A(void) {\
     return vm4##A(zerov4##A(), zerov4##A(), zerov4##A(), zerov4##A());\
+}
+
+LINALG_M4_CTOR_DEFINE(f,float)
+LINALG_M4_CTOR_DEFINE(d,double)
+
+#define LINALG_M4_FUNC_DEFINE(A,B)\
+m4##A absm4##A(const m4##A m) {\
+    return vm4##A(absv4##A(m.x), absv4##A(m.y), absv4##A(m.z), absv4##A(m.w));\
 }\
 \
 m4##A fillm4##A(const B x) {\
     return vm4##A(fillv4##A(x), fillv4##A(x), fillv4##A(x), fillv4##A(x));\
-}\
-\
-m4##A absm4##A(const m4##A m) {\
-    return vm4##A(absv4##A(m.x), absv4##A(m.y), absv4##A(m.z), absv4##A(m.w));\
 }\
 \
 m4##A sigm4##A(const m4##A m) {\
@@ -598,6 +600,10 @@ v4##A mulm4##A##v(const m4##A m, const v4##A v) {\
     return _v4##A(dotv4##A(m.x, v), dotv4##A(m.y, v), dotv4##A(m.z, v), dotv4##A(m.w, v));\
 }\
 \
+m4##A scalem4##A(const m4##A m, const v3##A s) {\
+    return vm4##A(mulv4##A##s(m.x, s.x), mulv4##A##s(m.y, s.y), mulv4##A##s(m.z, s.z), m.w);\
+}\
+\
 m4##A transposem4##A(const m4##A m) {\
     return _m4##A(\
         m.xx, m.yx, m.zx, m.wx,\
@@ -607,10 +613,16 @@ m4##A transposem4##A(const m4##A m) {\
     );\
 }\
 \
-m4##A scalem4##A(const m4##A m, const v3##A s) {\
-    return vm4##A(mulv4##A##s(m.x, s.x), mulv4##A##s(m.y, s.y), mulv4##A##s(m.z, s.z), m.w);\
-}\
-\
+m4##A translate##A(const v3##A t) {\
+    m4##A m = zerom4##A();\
+    m.w = _v4##A(t.x, t.y, t.z, 0);\
+    return m;\
+}
+
+LINALG_M4_FUNC_DEFINE(f,float)
+LINALG_M4_FUNC_DEFINE(d,double)
+
+#define LINALG_M4_FLOATING_DEFINE(A,B)\
 m4##A rotanglem4##A(const B theta) {\
     const B c = cos##A(theta);\
     const B s = sin##A(theta);\
@@ -663,14 +675,12 @@ m4##A rotm4##A(const B theta, const v3##A v) {\
         }\
     }\
     return m;\
-}\
-\
-m4##A translate##A(const v3##A t) {\
-    m4##A m = zerom4##A();\
-    m.w = _v4##A(t.x, t.y, t.z, 0);\
-    return m;\
-}\
-\
+}
+        
+LINALG_M4_FLOATING_DEFINE(f,float)
+LINALG_M4_FLOATING_DEFINE(d,double)
+
+#define LINALG_M4_CAMERA_DEFINE(A,B)\
 m4##A frustum##A(const B lf, const B rt, const B bot, const B top, const B near, const B far) {\
     const B a = 2 * near / (rt - lf);\
     const B b = 2 * near / (top - bot);\
@@ -720,5 +730,5 @@ m4##A lookat##A(const v3##A eye, const v3##A target, const v3##A up) {\
     return vm4##A(m_.x, m_.y, m_.z, eye_);\
 }
 
-LINALG_M4_FLOATING_DEFINE(f,float)
-LINALG_M4_FLOATING_DEFINE(d,double)
+LINALG_M4_CAMERA_DEFINE(f,float)
+LINALG_M4_CAMERA_DEFINE(d,double)

@@ -236,15 +236,15 @@ v3##A mulv3##A(const v3##A v, const v3##A u);\
 v3##A mulv3n##A(const v3##A v, const B n);\
 v3##A divv3##A(const v3##A v, const v3##A u);\
 v3##A divv3n##A(const v3##A v, const B n);\
-v3##A crossv3##A(const v3##A v, const v3##A u);
+v3##A crossv3##A(const v3##A v, const v3##A u);\
+B dotv3##A(const v3##A v, const v3##A u);
 
 LINALG_V3_FUNC_DECLARE(f,float)
 LINALG_V3_FUNC_DECLARE(d,double)
 
 #define LINALG_V3_FLOATING_DECLARE(A,B)\
 v3##A normv3##A(const v3##A v);\
-B lenv3##A(const v3##A v);\
-B dotv3##A(const v3##A v, const v3##A u);
+B lenv3##A(const v3##A v);
 
 LINALG_V3_FLOATING_DECLARE(f,float)
 LINALG_V3_FLOATING_DECLARE(d,double)
@@ -276,8 +276,7 @@ LINALG_V4_FUNC_DECLARE(d,double)
 
 #define LINALG_V4_FLOATING_DECLARE(A,B)\
 v4##A lerpv4##A(const v4##A v, const v4##A u, const B t);\
-B lenv4##A(const v4##A v);\
-v4##A normv4##A(const v4##A v);\
+v4##A normv4##A(const v4##A v);
 
 LINALG_V4_FLOATING_DECLARE(f,float)
 LINALG_V4_FLOATING_DECLARE(d,double)
@@ -349,27 +348,37 @@ m4##A m4m3##A(const m3##A m);
 LINALG_M4_CTOR_DECLARE(f,float)
 LINALG_M4_CTOR_DECLARE(d,double)
 
-#define LINALG_M4_FLOATING_DECLARE(A,B)\
+#define LINALG_M4_FUNC_DECLARE(A,B)\
 m4##A absm4##A(const m4##A m);\
 m4##A sigm4##A(const m4##A m);\
 m4##A negm4##A(const m4##A m);\
-m4##A scalem4##A(const m4##A m, const v3##A s);\
 m4##A addm4##A(const m4##A m, const m4##A n);\
 m4##A subm4##A(const m4##A m, const m4##A n);\
 m4##A mulm4##A(const m4##A m, const m4##A n);\
 v4##A mulm4##A##v(const m4##A m, const v4##A v);\
+m4##A scalem4##A(const m4##A m, const v3##A s);\
 m4##A transposem4##A(const m4##A m);\
+m4##A translate##A(const v3##A t);
+
+LINALG_M4_FUNC_DECLARE(f,float)
+LINALG_M4_FUNC_DECLARE(d,double)
+
+#define LINALG_M4_FLOATING_DECLARE(A,B)\
 m4##A rotanglem4##A(const B theta);\
 m4##A rotym4##A(const B theta);\
 m4##A rotxm4##A(const B theta);\
-m4##A rotm4##A(const B theta, const v3##A v);\
-m4##A translate##A(const v3##A t);\
+m4##A rotm4##A(const B theta, const v3##A v);
+
+LINALG_M4_FLOATING_DECLARE(f,float)
+LINALG_M4_FLOATING_DECLARE(d,double)
+
+#define LINALG_M4_CAMERA_DECLARE(A,B)\
 m4##A frustum##A(const B lf, const B rt, const B bot, const B top, const B near, const B far);\
 m4##A persp##A(const B fovy, const B aspect, const B near, const B far);\
 m4##A ortho##A(const B lf, const B rt, const B bot, const B top, const B near, const B far);\
 m4##A lookat##A(const v3##A eye, const v3##A target, const v3##A up);
 
-LINALG_M4_FLOATING_DECLARE(f,float)
-LINALG_M4_FLOATING_DECLARE(d,double)
+LINALG_M4_CAMERA_DECLARE(f,float)
+LINALG_M4_CAMERA_DECLARE(d,double)
 
 #endif
