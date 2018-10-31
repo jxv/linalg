@@ -98,6 +98,7 @@ v2f sigv2f(const v2f v);
 
 bool nearzerov2f(const v2f v);
 ```
+
 ### 3D Vector
 
 Using `v3f` as the example.
@@ -258,6 +259,18 @@ m4f zerom3f(void);
 m4f fillm4f(const float x);
 
 m4f m4m3f(const m3f m);
+```
+
+#### Floating Functions (supports `float`, `double`, `long double`)
+
+```c
+m4f rotanglem4f(const float theta);
+
+m4f rotym4f(const float theta);
+
+m4f rotxm4f(const float theta);
+
+m4f rotm4f(const float theta, const v3f v)
 ```
 
 #### Camera (supports `float`, `double`, `long double`)

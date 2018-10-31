@@ -7,7 +7,7 @@
 
 #define LINALG_VALUE_DEFINE(A,B)\
 bool nearzero##A(const B x) {\
-    return fabs##A(x) < 1e-6;\
+    return abs##A(x) < 1e-6;\
 }\
 \
 B sq##A(const B x) {\
@@ -19,11 +19,11 @@ B cube##A(const B x) {\
 }\
 \
 B clamp##A(const B l, const B h, const B x) {\
-    return fmin##A(h, fmax##A(l, x));\
+    return min##A(h, max##A(l, x));\
 }\
 \
 bool eq##A(const B x, const B y) {\
-    return fabs##A(x - y) <= 1e-6;\
+    return abs##A(x - y) <= 1e-6;\
 }\
 \
 B rand##A(const B l, const B h) {\
@@ -61,11 +61,11 @@ LINALG_V2_CTOR(d,double)
 
 #define LINALG_V2_FUNC(A,B)\
 v2##A absv2##A(const v2##A v) {\
-    return _v2##A(fabs##A(v.x), fabs##A(v.y));\
+    return _v2##A(abs##A(v.x), abs##A(v.y));\
 }\
 \
 v2##A sigv2##A(const v2##A v) {\
-    return _v2##A(-fabs##A(v.x), -fabs##A(v.y));\
+    return _v2##A(-abs##A(v.x), -abs##A(v.y));\
 }\
 \
 bool eqv2##A(const v2##A v, const v2##A u) {\
@@ -125,11 +125,11 @@ v2##A crosssv2##A(const B s, const v2##A v) {\
 }\
 \
 v2##A minv2##A(const v2##A v, const v2##A u) {\
-    return _v2##A(fmin##A(v.x, u.x), fmin##A(v.y, u.y));\
+    return _v2##A(min##A(v.x, u.x), min##A(v.y, u.y));\
 }\
 \
 v2##A maxv2##A(const v2##A v, const v2##A u) {\
-    return _v2##A(fmax##A(v.x, u.x), fmax##A(v.y, u.y));\
+    return _v2##A(max##A(v.x, u.x), max##A(v.y, u.y));\
 }
 
 LINALG_V2_FUNC(f,float)
@@ -197,11 +197,11 @@ bool eqv3##A(const v3##A v, const v3##A u) {\
 }\
 \
 v3##A absv3##A(const v3##A v) {\
-    return _v3##A(fabs##A(v.x), fabs##A(v.y), fabs##A(v.z));\
+    return _v3##A(abs##A(v.x), abs##A(v.y), abs##A(v.z));\
 }\
 \
 v3##A sigv3##A(const v3##A v) {\
-    return _v3##A(-fabs##A(v.x), -fabs##A(v.y), -fabs##A(v.z));\
+    return _v3##A(-abs##A(v.x), -abs##A(v.y), -abs##A(v.z));\
 }\
 \
 v3##A negv3##A(const v3##A v) {\
@@ -286,11 +286,11 @@ bool eqv4##A(const v4##A v, const v4##A u) {\
 }\
 \
 v4##A absv4##A(const v4##A v) {\
-    return _v4##A(fabs##A(v.x), fabs##A(v.y), fabs##A(v.z), fabs##A(v.w));\
+    return _v4##A(abs##A(v.x), abs##A(v.y), abs##A(v.z), abs##A(v.w));\
 }\
 \
 v4##A sigv4##A(const v4##A v) {\
-    return _v4##A(-fabs##A(v.x), -fabs##A(v.y), -fabs##A(v.z), -fabs##A(v.w));\
+    return _v4##A(-abs##A(v.x), -abs##A(v.y), -abs##A(v.z), -abs##A(v.w));\
 }\
 \
 v4##A negv4##A(const v4##A v) {\

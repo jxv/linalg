@@ -3,27 +3,41 @@
 
 #include <stdbool.h>
 
-#define fmind fmin
-#define fmaxd fmax
-#define fabsd fabs
-#define fminld fminl
-#define fmaxld fmaxl
-#define fabsld fabsl
-#define sind sin
-#define cosd cos
+#define absi abs
+#define absf fabsf
+#define absd fabs
+#define absld fabsld
+
+#define minf fminf
+#define mind fmin
+#define minld fminl
+
+#define maxf fmaxf
+#define maxd fmax
+#define maxld fmaxl
+
 #define tand tan
-#define asind asin
-#define acosd acos
-#define atand atan
-#define atan2d atan2
-#define sqrtd sqrt
-#define sinld sinl
-#define cosld cosl
 #define tanld tanl
+
+#define sind sin
+#define sinld sinl
+
+#define asind asin
 #define asinld asinl
+
+#define cosd cos
+#define cosld cosl
+
+#define acosd acos
 #define acosld acosl
+
+#define atand atan
 #define atanld atanl
+
+#define atan2d atan2
 #define atan2ld atan2l
+
+#define sqrtd sqrt
 #define sqrtld sqrtl
 
 #define LINALG_V2_STRUCT(A,B)\
