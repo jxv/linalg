@@ -1,6 +1,6 @@
 # linalg
 
-### POSIX-style, header-only library for basic linear algebra
+### POSIX-style, header-only library for basic linear algebra in C99
 
 ---
 
