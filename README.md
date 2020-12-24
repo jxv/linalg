@@ -1,6 +1,6 @@
 # linalg
 
-The missing POSIX-style math library for vectors, matrices, and quaternions
+### POSIX-style, header-only library for basic linear algebra
 
 ---
 
